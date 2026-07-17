@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>品牌行銷｜詠真堂</title>
+  <meta name="description" content="很多人以為問題出在曝光不夠，真正的問題通常是客戶還沒理解你的價值。Eric 協助企業把複雜的產品與內容，整理成客戶能理解、願意相信的品牌訊息。">
+  <link rel="canonical" href="https://example.com/services/marketing/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="品牌行銷｜詠真堂">
+  <meta property="og:description" content="真正的問題，通常不是曝光，而是客戶根本沒有理解你的價值">
+  <meta property="og:image" content="../../Eric形象照.jpg">
+  <meta property="og:locale" content="zh_TW">
+  <meta name="theme-color" content="#F7F5F0">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body class="service-page" data-service="marketing" style="--service-accent:#B44537; --service-accent-soft:#F1DDD7;">
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <header class="site-header">
+    <a class="brand-lockup" href="../../index.html#top" aria-label="詠真堂首頁">
+      <img class="brand-logo" src="../../logo白.png" alt="詠真堂" width="1666" height="700">
+    </a>
+    <nav class="site-nav" aria-label="主要導覽">
+      <a href="../../index.html#top">首頁</a>
+      <a href="../../index.html#services" class="active">專業</a>
+      <a href="../../index.html#about">關於</a>
+      <a href="../../index.html#contact">聯絡</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="content-wrap">
+      <a class="back-link" href="../../index.html#services">← 返回專業領域</a>
+      <p class="page-label">品牌行銷</p>
+      <h1>為什麼好的產品，卻一直賣不好？</h1>
+    </div>
+
+    <div class="content-wrap prose">
+      <p class="reveal-block">很多人認為，是廣告不夠、預算不夠，或流量不夠。</p>
+      <p class="emphasis reveal-block">真正的問題，通常不是曝光，而是客戶根本沒有理解你的價值。</p>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h2 class="reveal-block">如果一句話說不清楚你的品牌</h2>
+      <p class="reveal-block">客戶就很難在三秒鐘內記住你。</p>
+      <p class="emphasis reveal-block">品牌不是回答「我是誰」。<span class="accent">而是回答：</span></p>
+      <ul id="mount-questions" class="reveal-block"></ul>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h3 class="reveal-block">一個簡單的測試</h3>
+      <div id="mount-test-card" class="reveal-block"></div>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <p class="emphasis reveal-block">行銷不是曝光。<br><span class="accent">而是讓對的人，更快相信你。</span></p>
+    </div>
+
+    <div class="content-wrap prose">
+      <div id="mount-cta" class="reveal-block"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><p>© <span id="year"></span> Eric｜詠真堂</p></footer>
+  <nav class="bottom-nav" aria-label="底部導覽"><a href="../../index.html#top">首頁</a><a href="../../index.html#services" class="active">專業</a><a href="../../index.html#about">關於</a><a href="../../index.html#contact">聯絡</a></nav>
+  <script src="../../script.js" defer></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderQuestionList("mount-questions", {
+        numbered: false,
+        items: [
+          "我替誰解決問題？",
+          "我解決什麼問題？",
+          "為什麼找我，而不是找別人？"
+        ]
+      });
+      renderInsightCard("mount-test-card", {
+        lede: "把公司的 Logo 拿掉。",
+        body: "如果別人還是能從網站或簡報知道你是做什麼的，代表你的品牌有建立起來。",
+        result: "如果不能，代表真正需要調整的<span class=\"accent\">不是設計，而是定位</span>。"
+      });
+      renderServiceCTA("mount-cta", {
+        title: "開始整理你的品牌",
+        desc: "把複雜的產品、網站與內容，重新整理成客戶能理解的價值",
+        buttons: [
+          { label: "聯絡我", href: "https://line.me/ti/p/x0qtal5f5A", external: true },
+          { label: "直接來電", href: "tel:0920148119", secondary: true }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>珠寶礦石｜詠真堂</title>
+  <meta name="description" content="沒有最好的礦石，只有適合現在的你。Eric 依照個人需求、風格與日常配戴習慣，提供天然礦石選擇與客製手串搭配建議。">
+  <link rel="canonical" href="https://example.com/services/jewelry/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="珠寶礦石｜詠真堂">
+  <meta property="og:description" content="沒有最好的礦石，只有適合現在的你">
+  <meta property="og:image" content="../../Eric形象照.jpg">
+  <meta property="og:locale" content="zh_TW">
+  <meta name="theme-color" content="#F7F5F0">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body class="service-page" data-service="jewelry" style="--service-accent:#3F7163; --service-accent-soft:#DDEBE5;">
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <header class="site-header">
+    <a class="brand-lockup" href="../../index.html#top" aria-label="詠真堂首頁">
+      <img class="brand-logo" src="../../logo白.png" alt="詠真堂" width="1666" height="700">
+    </a>
+    <nav class="site-nav" aria-label="主要導覽">
+      <a href="../../index.html#top">首頁</a>
+      <a href="../../index.html#services" class="active">專業</a>
+      <a href="../../index.html#about">關於</a>
+      <a href="../../index.html#contact">聯絡</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="content-wrap">
+      <a class="back-link" href="../../index.html#services">← 返回專業領域</a>
+      <p class="page-label">珠寶礦石</p>
+      <h1>你買的是礦石，還是一份期待？</h1>
+    </div>
+
+    <div class="content-wrap prose">
+      <p class="reveal-block">很多人會先問：</p>
+      <p class="emphasis is-muted reveal-block">這顆會招財嗎？<br>這顆會招桃花嗎？</p>
+      <p class="reveal-block">真正應該先問的，其實是：</p>
+      <p class="emphasis reveal-block"><span class="accent">你現在最想改變的是什麼？</span></p>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h2 class="reveal-block">沒有最好的礦石。<br><span class="accent">只有適合現在的你。</span></h2>
+      <p class="reveal-block">每個人的需求、風格與生活習慣都不同。</p>
+      <p class="emphasis reveal-block">與其追求最熱門的礦石，不如找到真正願意每天配戴、每天提醒自己的那一件作品。</p>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h3 class="reveal-block">一個很多人不知道的觀念</h3>
+      <div id="mount-insight" class="reveal-block"></div>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <p class="emphasis reveal-block">每一條手串，都應該有它存在的理由。</p>
+      <p class="support-line reveal-block">不是因為流行。而是因為<span class="accent">適合你</span>。</p>
+    </div>
+
+    <div class="content-wrap prose">
+      <div id="mount-cta" class="reveal-block"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><p>© <span id="year"></span> Eric｜詠真堂</p></footer>
+  <nav class="bottom-nav" aria-label="底部導覽"><a href="../../index.html#top">首頁</a><a href="../../index.html#services" class="active">專業</a><a href="../../index.html#about">關於</a><a href="../../index.html#contact">聯絡</a></nav>
+  <script src="../../script.js" defer></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderInsightCard("mount-insight", {
+        lede: "手串不是戴得越多越好。",
+        body: "真正重要的是整體比例、配戴舒適度，以及是否符合你的日常生活。",
+        result: "<span class=\"accent\">簡單，往往比複雜更耐看。</span>"
+      });
+      renderServiceCTA("mount-cta", {
+        title: "開始客製你的手串",
+        desc: "從需求、風格、手圍與日常配戴習慣，找到真正適合你的搭配",
+        buttons: [
+          { label: "聯絡我", href: "https://line.me/ti/p/x0qtal5f5A", external: true }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,23 +1,27 @@
 const services = [
   {
     number: "01",
-    title: "品牌與行銷",
-    preview: "先看懂要對誰說話,再談執行方向"
+    title: "品牌行銷",
+    preview: "先看懂要對誰說話,再談執行方向",
+    href: "services/marketing/"
   },
   {
     number: "02",
     title: "占卜預測",
-    preview: "看清局勢與選項,而不是替你做決定"
+    preview: "看清局勢與選項,而不是替你做決定",
+    href: "services/divination/"
   },
   {
     number: "03",
-    title: "珠寶與礦石",
-    preview: "依需求與風格,客製真正想戴的礦石"
+    title: "珠寶礦石",
+    preview: "依需求與風格,客製真正想戴的礦石",
+    href: "services/jewelry/"
   },
   {
     number: "04",
     title: "潛意識探索",
-    preview: "整理反覆出現的模式,而不只是給答案"
+    preview: "整理反覆出現的模式,而不只是給答案",
+    href: "services/subconscious/"
   }
 ];
 
@@ -35,7 +39,7 @@ function renderServices() {
         </div>
         <div class="service-card-back">
           <p class="service-preview">${service.preview}</p>
-          <a class="service-more-link" href="#contact">了解${service.title} →</a>
+          <a class="service-more-link" href="${service.href}">了解${service.title} →</a>
         </div>
       </div>
     </article>
@@ -73,21 +77,27 @@ function setupServiceWorker() {
   }
 }
 
-function setupReveal() {
-  const elements = document.querySelectorAll(".reveal");
+function setupRevealGroup(selector, visibleClass, threshold) {
+  const elements = document.querySelectorAll(selector);
+  if (!elements.length) return;
   if (!("IntersectionObserver" in window)) {
-    elements.forEach((element) => element.classList.add("visible"));
+    elements.forEach((element) => element.classList.add(visibleClass));
     return;
   }
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
+        entry.target.classList.add(visibleClass);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold });
   elements.forEach((element) => observer.observe(element));
+}
+
+function setupReveal() {
+  setupRevealGroup(".reveal", "visible", 0.12);
+  setupRevealGroup(".reveal-block", "is-visible", 0.15);
 }
 
 function setupNavScrollSpy() {
@@ -158,6 +168,65 @@ function setupHeroParallax() {
       ticking = false;
     });
   }, { passive: true });
+}
+
+function renderInsightCard(mountId, { lede, body, result }) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("card", "insight-card");
+  mount.innerHTML = `
+    ${lede ? `<p class="card-lede">${lede}</p>` : ""}
+    ${body ? `<p class="body-text">${body}</p>` : ""}
+    ${result ? `<p class="card-result">${result}</p>` : ""}
+  `;
+}
+
+function renderQuestionList(mountId, { items, numbered }) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("question-list");
+  mount.innerHTML = items.map((item, index) => `
+    <li class="question-item">${numbered ? `<span class="q-index">${String(index + 1).padStart(2, "0")}</span>` : ""}${item}</li>
+  `).join("");
+}
+
+function renderCompareCards(mountId, pairs) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("compare-grid");
+  mount.innerHTML = pairs.map(({ worse, better }) => `
+    <div class="compare-card"><p class="compare-label">不要只問</p><p class="compare-text">${worse}</p></div>
+    <div class="compare-card is-better"><p class="compare-label">更值得問</p><p class="compare-text">${better}</p></div>
+  `).join("");
+}
+
+function renderTwinCards(mountId, items) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("compare-grid", "twin-grid");
+  mount.innerHTML = items.map((text) => `<div class="compare-card"><p class="compare-text">${text}</p></div>`).join("");
+}
+
+function renderNoticeBox(mountId, html) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("notice-box");
+  mount.innerHTML = `<p>${html}</p>`;
+}
+
+function renderServiceCTA(mountId, { title, desc, buttons }) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("cta-block");
+  mount.innerHTML = `
+    <div>
+      <p class="cta-title">${title}</p>
+      <p class="cta-desc">${desc}</p>
+    </div>
+    <div class="cta-actions">
+      ${buttons.map((b) => `<a class="cta-button${b.secondary ? " is-secondary" : ""}" href="${b.href}"${b.external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${b.label}</a>`).join("")}
+    </div>
+  `;
 }
 
 function init() {
