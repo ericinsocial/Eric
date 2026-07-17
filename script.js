@@ -2,46 +2,34 @@ const profile = {
   nameEn: "Eric Chen",
   nameZh: "陳昱華",
   brand: "詠真堂",
-  phone: "",
-  email: "",
-  lineUrl: "",
-  instagramUrl: "",
-  facebookUrl: "",
-  websiteUrl: "",
-  bookingUrl: ""
+  phone: "0920148119"
 };
 
 const services = [
   {
     number: "01",
     title: "品牌與行銷",
-    lines: ["從定位、內容到數位體驗", "讓品牌被看見也被理解"]
+    lines: ["從品牌定位、內容企劃到網站與數位體驗", "協助企業把複雜的產品價值轉化成市場能理解的訊息"],
+    tags: ["品牌定位", "行銷策略", "網站與內容企劃", "簡報與視覺溝通", "數位廣告與社群內容"]
   },
   {
     number: "02",
     title: "塔羅與易經",
-    lines: ["看清局勢與選項", "找到更適合自己的下一步"]
+    lines: ["占卜不是替你做決定", "而是看清局勢、可能的發展與每個選擇背後的代價"],
+    tags: ["感情與關係", "工作與事業", "財務與選擇", "人生方向", "易經卜卦與塔羅占卜"]
   },
   {
     number: "03",
     title: "珠寶與礦石",
-    lines: ["依照個人需求與風格", "提供礦石與飾品搭配建議"]
+    lines: ["依照個人需求、配戴習慣與風格", "提供礦石選擇、手串搭配與客製化建議"],
+    tags: ["天然礦石", "客製手串", "日常配戴", "送禮選擇", "礦石與五行搭配"]
   },
   {
     number: "04",
-    title: "個人探索",
-    lines: ["透過對話與象徵理解問題", "重新整理方向與行動"]
+    title: "潛意識探索",
+    lines: ["透過對話、象徵與問題整理", "看見反覆出現的模式，以及真正影響選擇的原因"],
+    tags: ["問題釐清", "關係模式", "內在衝突", "選擇與行動", "臼井靈氣"]
   }
-];
-
-const contactItems = [
-  { key: "phone", label: "電話", getHref: (value) => `tel:${value}` },
-  { key: "email", label: "電子郵件", getHref: (value) => `mailto:${value}` },
-  { key: "lineUrl", label: "LINE", getHref: (value) => value },
-  { key: "instagramUrl", label: "Instagram", getHref: (value) => value },
-  { key: "facebookUrl", label: "Facebook", getHref: (value) => value },
-  { key: "websiteUrl", label: "個人網站", getHref: (value) => value },
-  { key: "bookingUrl", label: "預約連結", getHref: (value) => value }
 ];
 
 const toast = document.querySelector("#toast");
@@ -60,34 +48,10 @@ function renderServices() {
       <p class="service-index" aria-hidden="true">${service.number}</p>
       <h3>${service.title}</h3>
       <p>${service.lines[0]}<br>${service.lines[1]}</p>
+      <div class="service-tags">${service.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
       <a class="service-link" href="#contact" aria-label="聯絡 Eric 了解${service.title}">聯絡了解 →</a>
     </article>
   `).join("");
-}
-
-function renderContactActions() {
-  const container = document.querySelector("#contact-actions");
-  const available = contactItems.filter((item) => profile[item.key]);
-  container.innerHTML = available.map((item) => {
-    const value = profile[item.key];
-    return `<a class="contact-action" href="${item.getHref(value)}" target="${item.key.endsWith("Url") ? "_blank" : "_self"}" rel="noopener">${item.label}</a>`;
-  }).join("");
-
-  const primary = document.querySelector("#primary-contact");
-  const first = available[0];
-  if (first) {
-    primary.href = first.getHref(profile[first.key]);
-    if (first.key.endsWith("Url")) {
-      primary.target = "_blank";
-      primary.rel = "noopener";
-    }
-  } else {
-    primary.href = "#";
-    primary.addEventListener("click", (event) => {
-      event.preventDefault();
-      showToast("請先在 script.js 填入聯絡資訊");
-    }, { once: false });
-  }
 }
 
 function downloadVCard() {
@@ -99,8 +63,7 @@ function downloadVCard() {
     `ORG:${profile.brand}`,
     `TITLE:Brand Consultant / Insight Advisor`,
     profile.phone ? `TEL;TYPE=CELL:${profile.phone}` : "",
-    profile.email ? `EMAIL:${profile.email}` : "",
-    profile.websiteUrl ? `URL:${profile.websiteUrl}` : window.location.href,
+    `URL:${window.location.href}`,
     "NOTE:詠真堂｜洞察、判斷、策略、選擇",
     "END:VCARD"
   ].filter(Boolean);
@@ -131,7 +94,7 @@ async function shareCard() {
 }
 
 function setupShareButtons() {
-  ["#header-share", "#hero-share", "#share-card"].forEach((selector) => {
+  ["#header-share", "#share-card"].forEach((selector) => {
     const button = document.querySelector(selector);
     if (button) {
       button.addEventListener("click", () => {
@@ -170,7 +133,6 @@ function init() {
   document.querySelector("#year").textContent = new Date().getFullYear();
   document.querySelector("#footer-brand").textContent = profile.brand;
   renderServices();
-  renderContactActions();
   setupShareButtons();
   setupServiceWorker();
   setupReveal();

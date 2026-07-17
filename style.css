@@ -79,6 +79,7 @@ p { color: var(--text-secondary); font-size: .92rem; line-height: 1.75; }
   margin: 0 0 12px;
 }
 .home-description { color: var(--accent); letter-spacing: .06em; font-size: .92rem; }
+.home-intro { margin-top: 10px; max-width: 30rem; }
 
 .hero {
   min-height: calc(100svh - 52px);
@@ -92,6 +93,17 @@ p { color: var(--text-secondary); font-size: .92rem; line-height: 1.75; }
 .btn:hover { transform: translateY(-2px); }
 .btn-primary { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
 .btn-secondary { background: var(--surface); color: var(--text-primary); }
+
+.primary-action, .secondary-action {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 12px 24px; border-radius: 999px;
+  border: 1px solid var(--line);
+  font: inherit; font-size: .92rem; font-weight: 500;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+.primary-action:hover, .secondary-action:hover { transform: translateY(-2px); }
+.primary-action { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
+.secondary-action { background: var(--surface); color: var(--text-primary); }
 
 .hero-portrait-wrap {
   position: relative;
@@ -124,7 +136,9 @@ p { color: var(--text-secondary); font-size: .92rem; line-height: 1.75; }
 .service-index { margin: 0; font-size: .72rem; letter-spacing: .14em; color: var(--accent); font-weight: 600; }
 .service-card h3 { font-size: 1.1rem; font-weight: 600; }
 .service-card p { margin: 0; }
-.service-link { align-self: flex-start; margin-top: 4px; color: var(--accent); font-size: .92rem; }
+.service-tags { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 4px; }
+.service-tags span { font-size: .78rem; line-height: 1.4; color: var(--text-secondary); padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-elevated); }
+.service-link { align-self: flex-start; margin-top: 6px; color: var(--accent); font-size: .92rem; }
 
 .statement-card {
   display: grid; place-content: center; justify-items: center; text-align: center;
@@ -147,14 +161,21 @@ p { color: var(--text-secondary); font-size: .92rem; line-height: 1.75; }
   box-shadow: var(--shadow);
 }
 .about-panel h2 { margin-bottom: 18px; }
-.about-panel p + p { margin-top: 12px; }
+.about-intro p + p { margin-top: 16px; }
+.about-intro { margin-bottom: 32px; }
+
+.method-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+.method-card { padding: 18px 16px; border-top: 2px solid var(--accent-soft); background: var(--surface); border-radius: 0 0 14px 14px; }
+.method-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+.method-card p { margin: 0; }
 
 .contact { display: grid; gap: 24px; }
 .contact-copy h2 { margin-bottom: 12px; }
-.contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.contact-action { min-height: 46px; display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; color: var(--text-secondary); background: var(--surface); font-size: .92rem; }
-.contact-action:hover { color: var(--text-primary); border-color: var(--line-strong); }
-.contact-cta { margin-top: 18px; justify-content: flex-start; }
+.contact-primary { display: flex; flex-direction: column; gap: 12px; }
+.contact-line-btn, .contact-phone-btn { width: 100%; min-height: 52px; font-size: 1rem; font-weight: 600; }
+.contact-phone-display { margin: 16px 0 4px; font-size: 1.05rem; letter-spacing: .04em; color: var(--text-primary); text-align: center; }
+.contact-area { margin: 0; font-size: .85rem; color: var(--text-secondary); text-align: center; }
+.contact-cta { margin-top: 28px; justify-content: flex-start; }
 .share-link { margin-top: 18px; color: var(--accent); background: none; border: 0; padding: 12px 0; cursor: pointer; font: inherit; font-size: .92rem; }
 
 .site-footer { padding: 26px 20px 44px; text-align: center; border-top: 1px solid var(--line); }
@@ -229,6 +250,8 @@ body { padding-bottom: calc(78px + env(safe-area-inset-bottom)); }
   .hero-portrait-wrap { width: clamp(280px, 28vw, 410px); aspect-ratio: 4 / 5.2; margin: 0; border-radius: 32px 32px 18px 18px; }
 
   .service-list { grid-template-columns: repeat(2, 1fr); }
+
+  .method-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
   .contact { grid-template-columns: .85fr 1.15fr; align-items: start; }
 

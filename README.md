@@ -11,40 +11,45 @@
 
 ## 修改個人資料
 
-所有可替換的聯絡資訊集中在 `script.js` 最上方的 `profile` 物件：
+姓名與品牌名稱集中在 `script.js` 最上方的 `profile` 物件：
 
 ```js
 const profile = {
   nameEn: "Eric Chen",
   nameZh: "陳昱華",
   brand: "詠真堂",
-  phone: "",
-  email: "",
-  lineUrl: "",
-  instagramUrl: "",
-  facebookUrl: "",
-  websiteUrl: "",
-  bookingUrl: ""
+  phone: "0920148119"
 };
 ```
 
-欄位留空時，對應的聯絡按鈕會自動隱藏。填入電話、Email、LINE、Instagram、Facebook、個人網站或預約連結後，頁面會自動產生可點擊入口。
+`profile.phone` 僅供「儲存聯絡人」產生 vCard 使用。實際會被使用者點擊的 LINE 連結與電話按鈕，直接以純 HTML `<a>` 寫死在 `index.html`（首頁 Hero 與聯絡頁各一組），不經過 JavaScript 攔截，確保連結永遠可用：
+
+- LINE：`https://line.me/ti/p/x0qtal5f5A`
+- 電話：`tel:0920148119`（畫面顯示為 `0920 148 119`）
+
+若需更換 LINE 或電話，請直接搜尋並修改 `index.html` 中對應的 `href`。
 
 ## 仍需替換的資料
 
-- `script.js` 的電話、Email、LINE、Instagram、Facebook、個人網站與預約連結。
 - `index.html` 的 canonical 網址，目前為 `https://example.com/`。
 - 正式 PWA Icon 尚待提供；目前不宣告 icon，避免新增不存在或占位圖片路徑。
 
 ## 功能
 
 - 手機優先的 RWD 單頁設計。
-- 空白聯絡欄位自動隱藏。
+- 首頁與聯絡頁提供固定的 LINE 加好友與直接撥號按鈕（純連結，無 JavaScript 攔截）。
 - Web Share API 分享目前網址；不支援時自動複製網址。
 - vCard 聯絡人下載。
 - 克制的捲動進場、hover 與點擊狀態。
 - `prefers-reduced-motion` 支援。
 - 可直接以靜態檔案部署，無需建置工具或資料庫。
+
+## 內容結構
+
+- **首頁**：`Eric` / `陳昱華`、核心標語、專業摘要（品牌行銷｜塔羅易經｜珠寶礦石）、兩行簡介，以及「加入 LINE」「直接來電」兩個主要按鈕；已移除原本的「分享名片」按鈕。
+- **專業頁**：四張卡片（品牌與行銷、塔羅與易經、珠寶與礦石、潛意識探索），每張包含編號、標題、兩行說明與一組小型服務標籤。
+- **關於頁**：完整自我介紹（六段，保留正常標點）與三張精簡的方法卡片（看見本質／整理問題／形成行動），品牌語句區塊移至關於頁之後、聯絡頁之前。
+- **聯絡頁**：標題與說明文字、大型「加入 LINE」與「直接來電」按鈕、電話顯示文字、服務地區（台北｜新北｜新竹），並保留既有的「儲存聯絡人」與「分享電子名片」功能；未顯示任何假 Email、Instagram 或社群資料。
 
 ## 視覺與版面
 
