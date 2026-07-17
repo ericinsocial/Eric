@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>品牌行銷｜詠真堂</title>
-  <meta name="description" content="很多人以為問題出在曝光不夠，真正的問題通常是客戶還沒理解你的價值。Eric 協助企業把複雜的產品與內容，整理成客戶能理解、願意相信的品牌訊息。">
-  <link rel="canonical" href="https://example.com/services/marketing/">
+  <meta name="description" content="問題通常不是缺少行銷工具，而是策略、內容、渠道與執行從來沒有真正連在一起。Eric 整合線上與線下資源，把策略真正執行出來。">
+  <link rel="canonical" href="https://ericinsocial.github.io/Eric/services/marketing/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="品牌行銷｜詠真堂">
-  <meta property="og:description" content="真正的問題，通常不是曝光，而是客戶根本沒有理解你的價值">
-  <meta property="og:image" content="../../Eric形象照.jpg">
+  <meta property="og:description" content="問題通常不是缺少行銷工具，而是策略、內容、渠道與執行從來沒有真正連在一起">
+  <meta property="og:image" content="https://ericinsocial.github.io/Eric/Eric%E5%BD%A2%E8%B1%A1%E7%85%A7.jpg">
   <meta property="og:locale" content="zh_TW">
-  <meta name="theme-color" content="#F7F5F0">
+  <meta name="theme-color" content="#0d1117">
   <link rel="manifest" href="../../manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,31 +34,36 @@
   </header>
 
   <main id="main">
-    <div class="content-wrap">
-      <a class="back-link" href="../../index.html#services">← 返回專業領域</a>
-      <p class="page-label">品牌行銷</p>
-      <h1>為什麼好的產品，卻一直賣不好？</h1>
-    </div>
+    <section class="service-hero">
+      <div class="content-wrap">
+        <a class="back-link" href="../../index.html#services">← 返回專業領域</a>
+        <p class="page-label">品牌行銷</p>
+        <h1>為什麼好的產品，卻一直賣不好？</h1>
+        <p class="hero-lines">問題通常不是缺少行銷工具<br>而是策略、內容、渠道與執行從來沒有真正連在一起</p>
+      </div>
+    </section>
 
     <div class="content-wrap prose">
-      <p class="reveal-block">很多人認為，是廣告不夠、預算不夠，或流量不夠。</p>
-      <p class="emphasis reveal-block">真正的問題，通常不是曝光，而是客戶根本沒有理解你的價值。</p>
+      <div id="mount-hero-image" class="reveal-block"></div>
     </div>
 
     <div class="content-wrap prose content-block">
-      <h2 class="reveal-block">如果一句話說不清楚你的品牌</h2>
-      <p class="reveal-block">客戶就很難在三秒鐘內記住你。</p>
-      <p class="emphasis reveal-block">品牌不是回答「我是誰」。<span class="accent">而是回答：</span></p>
-      <ul id="mount-questions" class="reveal-block"></ul>
+      <h2 class="reveal-block">我可以協助什麼</h2>
+      <div id="mount-accordion" class="reveal-block"></div>
     </div>
 
     <div class="content-wrap prose content-block">
-      <h3 class="reveal-block">一個簡單的測試</h3>
-      <div id="mount-test-card" class="reveal-block"></div>
+      <h2 class="reveal-block">工作如何連在一起</h2>
+      <div id="mount-flow" class="reveal-block"></div>
     </div>
 
     <div class="content-wrap prose content-block">
-      <p class="emphasis reveal-block">行銷不是曝光。<br><span class="accent">而是讓對的人，更快相信你。</span></p>
+      <h2 class="reveal-block">代表性專案</h2>
+      <div id="mount-projects" class="reveal-block"></div>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <p class="emphasis reveal-block">行銷不是做更多事情<br>而是讓所有事情朝同一個方向發生</p>
     </div>
 
     <div class="content-wrap prose">
@@ -71,24 +76,32 @@
   <script src="../../script.js" defer></script>
   <script defer>
     document.addEventListener("DOMContentLoaded", () => {
-      renderQuestionList("mount-questions", {
-        numbered: false,
-        items: [
-          "我替誰解決問題？",
-          "我解決什麼問題？",
-          "為什麼找我，而不是找別人？"
-        ]
+      renderPlaceholder("mount-hero-image", {
+        label: "情境圖：高級工作桌、策略文件、網站畫面、相機或影像製作設備、展場設計草稿",
+        desktop: "16:9（桌面寬度 1200px）",
+        mobile: "4:5 裁切",
+        alt: "Eric 的品牌行銷工作情境"
       });
-      renderInsightCard("mount-test-card", {
-        lede: "把公司的 Logo 拿掉。",
-        body: "如果別人還是能從網站或簡報知道你是做什麼的，代表你的品牌有建立起來。",
-        result: "如果不能，代表真正需要調整的<span class=\"accent\">不是設計，而是定位</span>。"
-      });
+      renderAccordion("mount-accordion", [
+        { title: "品牌與行銷策略", items: ["品牌定位、產品價值整理、市場溝通策略、OMO 線上線下整合、行銷企劃、年度或專案行銷規劃、商業模式與服務包裝"] },
+        { title: "數位行銷與網站", items: ["Google Ads、Meta Ads、線上廣告投放、Landing Page 規劃、品牌網站規劃、SEO、GA4 數據分析、使用者路徑與轉換設計、GitHub Pages 與輕量網站建置規劃"] },
+        { title: "內容與 AI 影音", items: ["AI 圖像生成、AI 影片生成、短影音企劃、腳本、分鏡、AI 配音、AI 工作流程、社群內容企劃、行銷文案、新聞稿"] },
+        { title: "影音與直播製作", items: ["攝影、錄影、錄音、剪輯、直播、訪談、Podcast、活動紀錄、產品影片"] },
+        { title: "線下廣告與活動", items: ["實體廣告、平面文宣、海報、展場輸出物、活動宣傳、現場執行、導流與互動設計"] },
+        { title: "展覽與參展統籌", items: ["展覽策略、參展規劃、攤位內容規劃、展場 2D 圖、展場 3D 圖、展示動線、展品與設備安排、國際展覽統籌、媒體與內容規劃、現場活動執行、展後內容與名單整理"] }
+      ]);
+      renderFlowDiagram("mount-flow", ["洞察", "策略", "內容", "製作", "投放", "執行", "分析"]);
+      renderPlaceholderGrid("mount-projects", [
+        { label: "案例：品牌網站", ratio: "ratio-4-3", desktop: "4:3", mobile: "4:3", alt: "品牌網站案例畫面" },
+        { label: "案例：展覽 3D 圖", ratio: "ratio-4-3", desktop: "4:3", mobile: "4:3", alt: "展覽 3D 規劃圖" },
+        { label: "案例：活動現場", ratio: "ratio-4-3", desktop: "4:3", mobile: "4:3", alt: "活動現場執行紀錄" },
+        { label: "案例：影片畫面", ratio: "ratio-4-3", desktop: "4:3", mobile: "4:3", alt: "產品或活動影片畫面" }
+      ]);
       renderServiceCTA("mount-cta", {
-        title: "開始整理你的品牌",
-        desc: "把複雜的產品、網站與內容，重新整理成客戶能理解的價值",
+        title: "討論行銷需求",
+        desc: "有一個產品、品牌或行銷問題想整理",
         buttons: [
-          { label: "聯絡我", href: "https://line.me/ti/p/x0qtal5f5A", external: true },
+          { label: "討論行銷需求", href: "https://line.me/ti/p/x0qtal5f5A", external: true },
           { label: "直接來電", href: "tel:0920148119", secondary: true }
         ]
       });

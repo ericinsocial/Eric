@@ -2,25 +2,25 @@ const services = [
   {
     number: "01",
     title: "品牌行銷",
-    preview: "先看懂要對誰說話,再談執行方向",
+    desc: "整合線上與線下資源，把策略真正執行出來",
     href: "services/marketing/"
   },
   {
     number: "02",
     title: "占卜預測",
-    preview: "看清局勢與選項,而不是替你做決定",
+    desc: "論運不論命，透過推演看清局勢與未來走向",
     href: "services/divination/"
   },
   {
     number: "03",
     title: "珠寶礦石",
-    preview: "依需求與風格,客製真正想戴的礦石",
+    desc: "從需求、風格與日常配戴，找到真正適合的作品",
     href: "services/jewelry/"
   },
   {
     number: "04",
     title: "潛意識探索",
-    preview: "整理反覆出現的模式,而不只是給答案",
+    desc: "看見反覆出現的模式，重新理解自己的選擇",
     href: "services/subconscious/"
   }
 ];
@@ -31,42 +31,13 @@ function renderServices() {
   const list = document.querySelector("#service-list");
   if (!list) return;
   list.innerHTML = services.map((service) => `
-    <article class="service-card reveal" tabindex="0">
-      <div class="service-card-inner">
-        <div class="service-card-front">
-          <p class="service-index" aria-hidden="true">${service.number}</p>
-          <h3 class="service-title">${service.title}</h3>
-        </div>
-        <div class="service-card-back">
-          <p class="service-preview">${service.preview}</p>
-          <a class="service-more-link" href="${service.href}">了解${service.title} →</a>
-        </div>
-      </div>
-    </article>
+    <a class="service-card reveal" href="${service.href}">
+      <p class="service-index" aria-hidden="true">${service.number}</p>
+      <h3 class="service-title">${service.title}</h3>
+      <p class="service-preview">${service.desc}</p>
+      <span class="service-more-link">了解更多 →</span>
+    </a>
   `).join("");
-}
-
-function setupServiceFlip() {
-  const cards = Array.from(document.querySelectorAll(".service-card"));
-  if (!cards.length) return;
-  const hoverCapable = () => window.matchMedia("(hover: hover)").matches;
-
-  cards.forEach((card) => {
-    card.addEventListener("click", (event) => {
-      if (event.target.closest(".service-more-link")) return;
-      if (hoverCapable()) return;
-      cards.forEach((other) => {
-        if (other !== card) other.classList.remove("is-flipped");
-      });
-      card.classList.toggle("is-flipped");
-    });
-  });
-
-  document.addEventListener("click", (event) => {
-    if (hoverCapable()) return;
-    if (event.target.closest(".service-card")) return;
-    cards.forEach((card) => card.classList.remove("is-flipped"));
-  });
 }
 
 function setupServiceWorker() {
@@ -181,29 +152,17 @@ function renderInsightCard(mountId, { lede, body, result }) {
   `;
 }
 
-function renderQuestionList(mountId, { items, numbered }) {
+function renderTagList(mountId, items) {
   const mount = document.getElementById(mountId);
   if (!mount) return;
-  mount.classList.add("question-list");
-  mount.innerHTML = items.map((item, index) => `
-    <li class="question-item">${numbered ? `<span class="q-index">${String(index + 1).padStart(2, "0")}</span>` : ""}${item}</li>
-  `).join("");
-}
-
-function renderCompareCards(mountId, pairs) {
-  const mount = document.getElementById(mountId);
-  if (!mount) return;
-  mount.classList.add("compare-grid");
-  mount.innerHTML = pairs.map(({ worse, better }) => `
-    <div class="compare-card"><p class="compare-label">不要只問</p><p class="compare-text">${worse}</p></div>
-    <div class="compare-card is-better"><p class="compare-label">更值得問</p><p class="compare-text">${better}</p></div>
-  `).join("");
+  mount.classList.add("tag-list");
+  mount.innerHTML = items.map((item) => `<span>${item}</span>`).join("");
 }
 
 function renderTwinCards(mountId, items) {
   const mount = document.getElementById(mountId);
   if (!mount) return;
-  mount.classList.add("compare-grid", "twin-grid");
+  mount.classList.add("compare-grid");
   mount.innerHTML = items.map((text) => `<div class="compare-card"><p class="compare-text">${text}</p></div>`).join("");
 }
 
@@ -229,11 +188,72 @@ function renderServiceCTA(mountId, { title, desc, buttons }) {
   `;
 }
 
+function renderAccordion(mountId, sections) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("accordion");
+  mount.innerHTML = sections.map((section, index) => `
+    <div class="accordion-item">
+      <button class="accordion-trigger" type="button" aria-expanded="false" aria-controls="${mountId}-panel-${index}">${section.title}</button>
+      <div class="accordion-panel" id="${mountId}-panel-${index}">
+        <div class="accordion-panel-inner">${section.items.join("<br>")}</div>
+      </div>
+    </div>
+  `).join("");
+  mount.querySelectorAll(".accordion-trigger").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!expanded));
+      btn.nextElementSibling.classList.toggle("is-open");
+    });
+  });
+}
+
+function renderFlowDiagram(mountId, steps) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("flow-diagram");
+  mount.innerHTML = steps.map((step, index) => `
+    ${index > 0 ? '<span class="flow-arrow" aria-hidden="true">→</span>' : ""}
+    <span class="flow-step">${step}</span>
+  `).join("");
+}
+
+function renderPriceCard(mountId, { name, meta, amount, includes, button }) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("price-card");
+  mount.innerHTML = `
+    <p class="price-name">${name}</p>
+    <p class="price-meta">${meta}</p>
+    <p class="price-amount">${amount}</p>
+    <ul class="price-includes">${includes.map((item) => `<li>${item}</li>`).join("")}</ul>
+    <a class="cta-button" href="${button.href}"${button.external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${button.label}</a>
+  `;
+}
+
+function renderPlaceholder(mountId, { label, ratio, desktop, mobile, alt }) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("image-placeholder");
+  if (ratio) mount.classList.add(ratio);
+  mount.innerHTML = `${label}<br>建議比例：${desktop}<br>手機版裁切：${mobile}<br>alt：${alt}`;
+}
+
+function renderPlaceholderGrid(mountId, items, colsClass) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+  mount.classList.add("placeholder-grid");
+  if (colsClass) mount.classList.add(colsClass);
+  mount.innerHTML = items.map(({ label, ratio, desktop, mobile, alt }) => `
+    <div class="image-placeholder${ratio ? ` ${ratio}` : ""}">${label}<br>建議比例：${desktop}<br>手機版裁切：${mobile}<br>alt：${alt}</div>
+  `).join("");
+}
+
 function init() {
   const yearEl = document.querySelector("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
   renderServices();
-  setupServiceFlip();
   setupServiceWorker();
   setupReveal();
   setupNavScrollSpy();

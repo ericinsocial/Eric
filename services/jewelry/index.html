@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>珠寶礦石｜詠真堂</title>
   <meta name="description" content="沒有最好的礦石，只有適合現在的你。Eric 依照個人需求、風格與日常配戴習慣，提供天然礦石選擇與客製手串搭配建議。">
-  <link rel="canonical" href="https://example.com/services/jewelry/">
+  <link rel="canonical" href="https://ericinsocial.github.io/Eric/services/jewelry/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="珠寶礦石｜詠真堂">
   <meta property="og:description" content="沒有最好的礦石，只有適合現在的你">
-  <meta property="og:image" content="../../Eric形象照.jpg">
+  <meta property="og:image" content="https://ericinsocial.github.io/Eric/Eric%E5%BD%A2%E8%B1%A1%E7%85%A7.jpg">
   <meta property="og:locale" content="zh_TW">
-  <meta name="theme-color" content="#F7F5F0">
+  <meta name="theme-color" content="#0d1117">
   <link rel="manifest" href="../../manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,13 +34,15 @@
   </header>
 
   <main id="main">
-    <div class="content-wrap">
-      <a class="back-link" href="../../index.html#services">← 返回專業領域</a>
-      <p class="page-label">珠寶礦石</p>
-      <h1>你買的是礦石，還是一份期待？</h1>
-    </div>
+    <section class="service-hero">
+      <div class="content-wrap">
+        <a class="back-link" href="../../index.html#services">← 返回專業領域</a>
+        <p class="page-label">珠寶礦石</p>
+        <h1>你買的是礦石，還是一份期待？</h1>
+      </div>
+    </section>
 
-    <div class="content-wrap prose">
+    <div class="content-wrap prose content-block">
       <p class="reveal-block">很多人會先問：</p>
       <p class="emphasis is-muted reveal-block">這顆會招財嗎？<br>這顆會招桃花嗎？</p>
       <p class="reveal-block">真正應該先問的，其實是：</p>
@@ -56,6 +58,15 @@
     <div class="content-wrap prose content-block">
       <h3 class="reveal-block">一個很多人不知道的觀念</h3>
       <div id="mount-insight" class="reveal-block"></div>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h2 class="reveal-block">客製可以怎麼進行</h2>
+      <div id="mount-process" class="reveal-block"></div>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <div id="mount-gallery" class="reveal-block"></div>
     </div>
 
     <div class="content-wrap prose content-block">
@@ -78,11 +89,22 @@
         body: "真正重要的是整體比例、配戴舒適度，以及是否符合你的日常生活。",
         result: "<span class=\"accent\">簡單，往往比複雜更耐看。</span>"
       });
+      renderTagList("mount-process", [
+        "礦石選擇邏輯", "手圍與配戴習慣", "風格搭配", "金屬配件", "成品細節", "保養方式"
+      ]);
+      renderPlaceholderGrid("mount-gallery", [
+        { label: "微距礦石", ratio: "ratio-1-1", desktop: "1:1", mobile: "1:1", alt: "礦石微距特寫" },
+        { label: "手串材質", ratio: "ratio-1-1", desktop: "1:1", mobile: "1:1", alt: "手串材質細節" },
+        { label: "金屬配件", ratio: "ratio-1-1", desktop: "1:1", mobile: "1:1", alt: "金屬配件細節" },
+        { label: "手腕實戴", ratio: "ratio-4-5", desktop: "4:5", mobile: "4:5", alt: "手串實際配戴情境" },
+        { label: "包裝", ratio: "ratio-1-1", desktop: "1:1", mobile: "1:1", alt: "成品包裝" }
+      ]);
       renderServiceCTA("mount-cta", {
-        title: "開始客製你的手串",
+        title: "開始客製",
         desc: "從需求、風格、手圍與日常配戴習慣，找到真正適合你的搭配",
         buttons: [
-          { label: "聯絡我", href: "https://line.me/ti/p/x0qtal5f5A", external: true }
+          { label: "開始客製", href: "https://line.me/ti/p/x0qtal5f5A", external: true },
+          { label: "返回專業領域", href: "../../index.html#services", secondary: true }
         ]
       });
     });
