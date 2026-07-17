@@ -18,7 +18,6 @@ const profile = {
   nameEn: "Eric Chen",
   nameZh: "陳昱華",
   brand: "詠真堂",
-  brandEn: "YONG ZHEN TANG",
   phone: "",
   email: "",
   lineUrl: "",
@@ -47,6 +46,15 @@ const profile = {
 - `prefers-reduced-motion` 支援。
 - 可直接以靜態檔案部署，無需建置工具或資料庫。
 
+## 視覺與版面
+
+- 全站以正體中文為主，僅保留人名 `Eric`、平台功能名稱（`LINE`、`Instagram`、`Facebook`）與必要 SEO metadata / vCard 中的英文姓名。
+- Logo 以既有 `logo白.png` 呈現，維持原始長寬比：手機版寬度約 76–92px、桌機版寬度約 96–118px，不隨螢幕加大而過度放大。
+- 配色改為沉穩的炭灰藍背景（`--bg #0d1117`）、暖白主文字、灰米色次要文字，強調色為克制的舊金／香檳金（`--accent #b59a68`），移除霓虹、紫色漸層與過度玻璃擬態效果。
+- 中文內文採 Noto Sans TC／PingFang TC／Microsoft JhengHei；首頁標語與品牌語句使用 Noto Serif TC 襯線字體，其餘介面維持無襯線。
+- 手機首頁採單欄置中版面，人物照、姓名、標語與主要按鈕可在 390×844 首屏內同時顯示；桌機採左右兩欄版面（左側文字與按鈕、右側人物照），並使用上方導覽列。
+- 介面短句已移除句尾句號；四個專業項目、品牌語句與聯絡頁說明皆已中文化並移除英文分類副標。
+
 ## GitHub Pages 部署
 
 1. 將本專案推送到 GitHub repository。
@@ -59,7 +67,7 @@ const profile = {
 ## 圖片資產與人工確認
 
 - 本專案目前只直接引用 Repository 既有圖片：`logo白.png` 與 `Eric形象照.jpg`。
-- `index.html` 以 `<img>` 直接引用 `./logo白.png` 作為 Header、首頁與品牌語句落款 Logo。
+- `index.html` 以 `<img>` 直接引用 `./logo白.png` 作為 Header 品牌識別 Logo。
 - `index.html` 以 `<img>` 直接引用 `./Eric形象照.jpg` 作為首頁 Hero 人物主視覺，並只透過 CSS 的 `object-fit`、`object-position`、尺寸與圓角控制呈現。
 - 未建立、複製、重新命名、裁切或轉換任何圖片檔案；未新增 favicon、apple-touch-icon、maskable icon、縮圖、WebP 或其他圖片占位檔。
 - `manifest.webmanifest` 暫不宣告 icons；正式 PWA Icon 尚待提供。
