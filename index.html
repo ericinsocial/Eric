@@ -26,10 +26,11 @@
       <img class="brand-logo" src="./logo白.png" alt="詠真堂" width="1666" height="700">
     </a>
     <nav class="site-nav" id="site-nav" aria-label="主要導覽">
-      <a href="#top">首頁</a>
-      <a href="#services">專業</a>
-      <a href="#about">關於</a>
-      <a href="#contact">聯絡</a>
+      <a href="#top" data-nav="top" class="active">首頁</a>
+      <a href="#services" data-nav="services">專業</a>
+      <a href="#about" data-nav="about">關於</a>
+      <a href="#contact" data-nav="contact">聯絡</a>
+      <span class="nav-indicator" aria-hidden="true"></span>
     </nav>
   </header>
 
@@ -39,7 +40,7 @@
         <div class="hero-portrait-wrap mobile-portrait" aria-hidden="true">
           <img src="./Eric形象照.jpg" alt="" class="hero-portrait" width="1024" height="1403" fetchpriority="high">
         </div>
-        <h1 id="hero-title">Eric</h1>
+        <h1 id="hero-title" class="shine-text">Eric</h1>
         <p class="name-zh">陳昱華</p>
         <h2 class="home-tagline">看見本質<br>做出更好的選擇</h2>
         <p class="home-description">品牌行銷｜塔羅易經｜珠寶礦石</p>
@@ -107,7 +108,7 @@
     <section class="statement section reveal" id="statement" aria-labelledby="statement-title">
       <div class="statement-card">
         <h2 id="statement-title">有些問題<br>不是沒有答案</h2>
-        <p class="statement-line">有些答案<br><span class="accent-text">只差一卦</span></p>
+        <p class="statement-line">有些答案<br><span class="accent-text shine-text">只差一卦</span></p>
       </div>
     </section>
 
@@ -135,7 +136,7 @@
   </main>
 
   <footer class="site-footer"><p>© <span id="year"></span> Eric｜詠真堂</p></footer>
-  <nav class="bottom-nav" aria-label="底部導覽"><a href="#top">首頁</a><a href="#services">專業</a><a href="#about">關於</a><a href="#contact">聯絡</a></nav>
+  <nav class="bottom-nav" aria-label="底部導覽"><a href="#top" data-nav="top" class="active">首頁</a><a href="#services" data-nav="services">專業</a><a href="#about" data-nav="about">關於</a><a href="#contact" data-nav="contact">聯絡</a><span class="nav-indicator" aria-hidden="true"></span></nav>
   <script src="script.js" defer></script>
 </body>
 </html>
