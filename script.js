@@ -25,17 +25,48 @@ const services = [
   }
 ];
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
 function renderServices() {
   const list = document.querySelector("#service-list");
   list.innerHTML = services.map((service) => `
     <article class="service-card reveal" tabindex="0">
-      <p class="service-index" aria-hidden="true">${service.number}</p>
-      <h3>${service.title}</h3>
-      <p>${service.lines[0]}<br>${service.lines[1]}</p>
-      <div class="service-tags">${service.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
-      <a class="service-link" href="#contact" aria-label="聯絡 Eric 了解${service.title}">聯絡了解 →</a>
+      <div class="service-card-inner">
+        <div class="service-card-front">
+          <p class="service-index" aria-hidden="true">${service.number}</p>
+          <h3>${service.title}</h3>
+        </div>
+        <div class="service-card-back">
+          <p>${service.lines[0]}<br>${service.lines[1]}</p>
+          <div class="service-tags">${service.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
+          <a class="service-link" href="#contact" aria-label="聯絡 Eric 了解${service.title}">聯絡了解 →</a>
+        </div>
+      </div>
     </article>
   `).join("");
+}
+
+function setupServiceFlip() {
+  const cards = Array.from(document.querySelectorAll(".service-card"));
+  if (!cards.length) return;
+  const hoverCapable = () => window.matchMedia("(hover: hover)").matches;
+
+  cards.forEach((card) => {
+    card.addEventListener("click", (event) => {
+      if (hoverCapable()) return;
+      if (event.target.closest(".service-link")) return;
+      cards.forEach((other) => {
+        if (other !== card) other.classList.remove("is-flipped");
+      });
+      card.classList.toggle("is-flipped");
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (hoverCapable()) return;
+    if (event.target.closest(".service-card")) return;
+    cards.forEach((card) => card.classList.remove("is-flipped"));
+  });
 }
 
 function setupServiceWorker() {
@@ -63,11 +94,84 @@ function setupReveal() {
   elements.forEach((element) => observer.observe(element));
 }
 
+function setupNavScrollSpy() {
+  const navGroups = Array.from(document.querySelectorAll(".site-nav, .bottom-nav"));
+  if (!navGroups.length) return;
+
+  const moveIndicator = (nav, link) => {
+    const indicator = nav.querySelector(".nav-indicator");
+    if (!indicator || !link) return;
+    indicator.style.width = `${link.offsetWidth}px`;
+    indicator.style.transform = `translateX(${link.offsetLeft}px)`;
+  };
+
+  const setActive = (name) => {
+    navGroups.forEach((nav) => {
+      const link = nav.querySelector(`[data-nav="${name}"]`);
+      nav.querySelectorAll("a").forEach((a) => a.classList.remove("active"));
+      if (link) {
+        link.classList.add("active");
+        moveIndicator(nav, link);
+      }
+    });
+  };
+
+  const sections = ["top", "services", "about", "contact"]
+    .map((name) => ({ name, el: document.getElementById(name) }))
+    .filter((entry) => entry.el);
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const match = sections.find((s) => s.el === entry.target);
+          if (match) setActive(match.name);
+        }
+      });
+    }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+    sections.forEach((s) => observer.observe(s.el));
+  }
+
+  window.addEventListener("resize", () => {
+    navGroups.forEach((nav) => {
+      const active = nav.querySelector("a.active");
+      if (active) moveIndicator(nav, active);
+    });
+  });
+
+  navGroups.forEach((nav) => {
+    const active = nav.querySelector("a.active");
+    if (active) moveIndicator(nav, active);
+  });
+}
+
+function setupHeroParallax() {
+  if (prefersReducedMotion.matches) return;
+  const portraits = document.querySelectorAll(".hero-portrait");
+  if (!portraits.length) return;
+
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      const offset = window.scrollY * 0.08;
+      portraits.forEach((portrait) => {
+        portrait.style.transform = `translateY(${offset}px)`;
+      });
+      ticking = false;
+    });
+  }, { passive: true });
+}
+
 function init() {
   document.querySelector("#year").textContent = new Date().getFullYear();
   renderServices();
+  setupServiceFlip();
   setupServiceWorker();
   setupReveal();
+  setupNavScrollSpy();
+  setupHeroParallax();
 }
 
 document.addEventListener("DOMContentLoaded", init);
