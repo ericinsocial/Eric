@@ -35,9 +35,7 @@ const profile = {
 
 - `script.js` 的電話、Email、LINE、Instagram、Facebook、個人網站與預約連結。
 - `index.html` 的 canonical 網址，目前為 `https://example.com/`。
-- Open Graph 圖片占位：`assets/og-image.jpg`。
-- Favicon 占位：`assets/favicon.svg`。
-- PWA icons 占位：`assets/icon-192.png` 與 `assets/icon-512.png`。
+- 正式 PWA Icon 尚待提供；目前不宣告 icon，避免新增不存在或占位圖片路徑。
 
 ## 功能
 
@@ -57,3 +55,12 @@ const profile = {
 4. 儲存後等待 GitHub Pages 完成部署。
 
 若使用自訂網域，請同步更新 `index.html` 中的 canonical 與 Open Graph 圖片路徑。
+
+## 圖片資產與人工確認
+
+- 本專案目前只直接引用 Repository 既有圖片：`logo白.png` 與 `Eric形象照.jpg`。
+- `index.html` 以 `<img>` 直接引用 `./logo白.png` 作為 Header、首頁與品牌語句落款 Logo。
+- `index.html` 以 `<img>` 直接引用 `./Eric形象照.jpg` 作為首頁 Hero 人物主視覺，並只透過 CSS 的 `object-fit`、`object-position`、尺寸與圓角控制呈現。
+- 未建立、複製、重新命名、裁切或轉換任何圖片檔案；未新增 favicon、apple-touch-icon、maskable icon、縮圖、WebP 或其他圖片占位檔。
+- `manifest.webmanifest` 暫不宣告 icons；正式 PWA Icon 尚待提供。
+- `service-worker.js` 僅快取已存在的 `./logo白.png` 與 `./Eric形象照.jpg`，避免加入不存在的圖片路徑。
