@@ -1,10 +1,3 @@
-const profile = {
-  nameEn: "Eric Chen",
-  nameZh: "陳昱華",
-  brand: "詠真堂",
-  phone: "0920148119"
-};
-
 const services = [
   {
     number: "01",
@@ -32,15 +25,6 @@ const services = [
   }
 ];
 
-const toast = document.querySelector("#toast");
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add("show");
-  window.clearTimeout(showToast.timer);
-  showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2400);
-}
-
 function renderServices() {
   const list = document.querySelector("#service-list");
   list.innerHTML = services.map((service) => `
@@ -52,56 +36,6 @@ function renderServices() {
       <a class="service-link" href="#contact" aria-label="聯絡 Eric 了解${service.title}">聯絡了解 →</a>
     </article>
   `).join("");
-}
-
-function downloadVCard() {
-  const lines = [
-    "BEGIN:VCARD",
-    "VERSION:3.0",
-    `N:${profile.nameEn.split(" ").slice(-1)[0] || "Chen"};${profile.nameEn.split(" ")[0] || "Eric"};;;`,
-    `FN:${profile.nameEn}（${profile.nameZh}）`,
-    `ORG:${profile.brand}`,
-    `TITLE:Brand Consultant / Insight Advisor`,
-    profile.phone ? `TEL;TYPE=CELL:${profile.phone}` : "",
-    `URL:${window.location.href}`,
-    "NOTE:詠真堂｜洞察、判斷、策略、選擇",
-    "END:VCARD"
-  ].filter(Boolean);
-  const blob = new Blob([lines.join("\n")], { type: "text/vcard;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${profile.nameEn.replace(/\s+/g, "-")}.vcf`;
-  document.body.append(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-  showToast("已產生 vCard 聯絡人");
-}
-
-async function shareCard() {
-  const shareData = {
-    title: `${profile.nameEn}｜${profile.brand}`,
-    text: "看見本質，做出更好的選擇",
-    url: window.location.href
-  };
-  if (navigator.share) {
-    await navigator.share(shareData);
-    return;
-  }
-  await navigator.clipboard.writeText(window.location.href);
-  showToast("已複製電子名片網址");
-}
-
-function setupShareButtons() {
-  ["#header-share", "#share-card"].forEach((selector) => {
-    const button = document.querySelector(selector);
-    if (button) {
-      button.addEventListener("click", () => {
-        shareCard().catch(() => showToast("分享失敗，請稍後再試"));
-      });
-    }
-  });
 }
 
 function setupServiceWorker() {
@@ -131,12 +65,9 @@ function setupReveal() {
 
 function init() {
   document.querySelector("#year").textContent = new Date().getFullYear();
-  document.querySelector("#footer-brand").textContent = profile.brand;
   renderServices();
-  setupShareButtons();
   setupServiceWorker();
   setupReveal();
-  document.querySelector("#save-vcard").addEventListener("click", downloadVCard);
 }
 
 document.addEventListener("DOMContentLoaded", init);
