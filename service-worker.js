@@ -1,4 +1,4 @@
-const CACHE_NAME = "eric-card-v3";
+const CACHE_NAME = "eric-card-v4";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,7 +6,11 @@ const ASSETS = [
   "./script.js",
   "./manifest.webmanifest",
   "./logo白.png",
-  "./Eric形象照.jpg"
+  "./Eric形象照.jpg",
+  "./services/marketing/index.html",
+  "./services/divination/index.html",
+  "./services/jewelry/index.html",
+  "./services/subconscious/index.html"
 ];
 
 self.addEventListener("install", (event) => {

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>占卜預測｜詠真堂</title>
+  <meta name="description" content="占卜不是替你做決定，而是讓你在做決定之前，看見自己還沒注意到的資訊。Eric 透過塔羅與易經，協助你看清局勢、比較選項，提升每一次決策的品質。">
+  <link rel="canonical" href="https://example.com/services/divination/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="占卜預測｜詠真堂">
+  <meta property="og:description" content="占卜不是替你做決定，而是讓你在做決定之前，看見自己還沒注意到的資訊">
+  <meta property="og:image" content="../../Eric形象照.jpg">
+  <meta property="og:locale" content="zh_TW">
+  <meta name="theme-color" content="#F7F5F0">
+  <link rel="manifest" href="../../manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body class="service-page" data-service="divination" style="--service-accent:#66528C; --service-accent-soft:#E8E1F0;">
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <header class="site-header">
+    <a class="brand-lockup" href="../../index.html#top" aria-label="詠真堂首頁">
+      <img class="brand-logo" src="../../logo白.png" alt="詠真堂" width="1666" height="700">
+    </a>
+    <nav class="site-nav" aria-label="主要導覽">
+      <a href="../../index.html#top">首頁</a>
+      <a href="../../index.html#services" class="active">專業</a>
+      <a href="../../index.html#about">關於</a>
+      <a href="../../index.html#contact">聯絡</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="content-wrap">
+      <a class="back-link" href="../../index.html#services">← 返回專業領域</a>
+      <p class="page-label">占卜預測</p>
+      <h1>你想知道的，真的是未來嗎？</h1>
+    </div>
+
+    <div class="content-wrap prose">
+      <p class="reveal-block">大部分的人來占卜，真正困擾的不是不知道未來。</p>
+      <p class="emphasis reveal-block">而是明明有好幾個選擇，卻不知道哪一個，才是對自己最好的決定。</p>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h2 class="reveal-block">其實，你不是缺答案。<br><span class="accent">你只是缺少看清局勢。</span></h2>
+      <p class="reveal-block">很多時候，問題並不是「會不會發生」，而是：</p>
+      <ul id="mount-questions" class="reveal-block"></ul>
+      <p class="emphasis reveal-block">當局勢看清楚了，答案往往就已經出現。</p>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h2 class="reveal-block">為什麼有人覺得占卜很準，有人卻覺得完全不準？</h2>
+      <p class="emphasis reveal-block">因為很多人問錯了問題。</p>
+      <div id="mount-compare" class="reveal-block"></div>
+      <p class="emphasis reveal-block">問題越精準，得到的答案就越有價值。</p>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <p class="emphasis reveal-block">占卜不是替你做決定。<br><span class="accent">而是讓你在做決定之前，<br>看見自己還沒注意到的資訊。</span></p>
+      <p class="reveal-block">真正好的占卜，不是告訴你一個結果。而是幫助你提升每一次決策的品質。</p>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h2 class="reveal-block">占卜會怎麼進行？</h2>
+      <ol id="mount-steps" class="reveal-block"></ol>
+    </div>
+
+    <div class="content-wrap prose content-block">
+      <h3 class="reveal-block">一個值得記住的觀念</h3>
+      <div id="mount-insight" class="reveal-block"></div>
+    </div>
+
+    <div class="content-wrap prose">
+      <div id="mount-notice" class="reveal-block"></div>
+      <div id="mount-cta" class="reveal-block"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><p>© <span id="year"></span> Eric｜詠真堂</p></footer>
+  <nav class="bottom-nav" aria-label="底部導覽"><a href="../../index.html#top">首頁</a><a href="../../index.html#services" class="active">專業</a><a href="../../index.html#about">關於</a><a href="../../index.html#contact">聯絡</a></nav>
+  <script src="../../script.js" defer></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderQuestionList("mount-questions", {
+        numbered: true,
+        items: [
+          "現在到底發生了什麼？",
+          "哪些事情其實已經開始改變？",
+          "哪個選擇值得繼續？",
+          "哪個決定會讓自己後悔？"
+        ]
+      });
+      renderCompareCards("mount-compare", [
+        { worse: "我們會不會復合？", better: "現在阻礙復合的真正原因是什麼？" },
+        { worse: "我要不要換工作？", better: "留在現在與離開，未來各自會面對什麼？" }
+      ]);
+      renderQuestionList("mount-steps", {
+        numbered: true,
+        items: [
+          "釐清真正想問的問題",
+          "透過塔羅、易經或交叉判讀整理局勢",
+          "比較不同選項可能的發展",
+          "整理現在最適合採取的方向"
+        ]
+      });
+      renderInsightCard("mount-insight", {
+        lede: "命運不是固定的。",
+        body: "真正固定的，往往是我們重複做出的選擇。",
+        result: "<span class=\"accent\">當選擇改變了，未來自然也會開始改變。</span>"
+      });
+      renderNoticeBox("mount-notice", "占卜可協助整理風險與選項，但不取代專業投資、法律或醫療意見");
+      renderServiceCTA("mount-cta", {
+        title: "如果你正在猶豫一件事",
+        desc: "你需要的也許不是有人替你做決定，而是先把局勢看清楚",
+        buttons: [
+          { label: "開始占卜預測", href: "https://line.me/ti/p/x0qtal5f5A", external: true }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>
