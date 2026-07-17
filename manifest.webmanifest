@@ -1,25 +1,11 @@
 {
-  "name": "Eric Chen｜詠真堂",
+  "name": "Eric｜詠真堂",
   "short_name": "詠真堂",
-  "description": "Eric 的個人品牌入口，整合品牌行銷顧問、塔羅與易經、珠寶礦石與個人探索。",
+  "description": "Eric 的個人品牌入口，整合品牌行銷顧問、塔羅易經與珠寶礦石",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b1220",
-  "theme_color": "#0b1220",
-  "lang": "zh-Hant",
-  "icons": [
-    {
-      "src": "assets/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "lang": "zh-Hant"
 }
