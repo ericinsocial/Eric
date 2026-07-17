@@ -2,17 +2,16 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Eric Chen｜詠真堂</title>
   <meta name="description" content="Eric 的個人品牌入口，整合品牌行銷顧問、塔羅與易經、珠寶礦石與個人探索。">
   <link rel="canonical" href="https://example.com/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Eric Chen｜詠真堂">
-  <meta property="og:description" content="Eric 的個人品牌入口，整合品牌行銷顧問、塔羅與易經、珠寶礦石與個人探索。">
-  <meta property="og:image" content="assets/og-image.jpg">
+  <meta property="og:description" content="看見本質，做出更好的選擇。">
+  <meta property="og:image" content="./Eric形象照.jpg">
   <meta property="og:locale" content="zh_TW">
   <meta name="theme-color" content="#0b1220">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,39 +24,37 @@
   <div class="ambient ambient-two" aria-hidden="true"></div>
 
   <header class="site-header" id="top">
-    <a class="brand-lockup" href="#top" aria-label="Eric Chen 詠真堂首頁">
-      <span class="seal-mark">真</span>
-      <span><strong>Eric Chen</strong><small>詠真堂</small></span>
+    <a class="brand-lockup" href="#top" aria-label="詠真堂首頁">
+      <img class="app-logo" src="./logo白.png" alt="詠真堂" width="1666" height="700">
     </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">選單</button>
+    <button class="menu-toggle" id="header-share" type="button">分享</button>
     <nav class="site-nav" id="site-nav" aria-label="主要導覽">
-      <a href="#about">關於 Eric</a>
-      <a href="#services">專業領域</a>
-      <a href="#statement">詠真堂</a>
-      <a href="#contact">聯絡方式</a>
+      <a href="#top">首頁</a>
+      <a href="#services">專業</a>
+      <a href="#about">關於</a>
+      <a href="#contact">聯絡</a>
     </nav>
   </header>
 
   <main id="main">
     <section class="hero section" aria-labelledby="hero-title">
       <div class="hero-copy reveal">
-        <p class="eyebrow">YONG ZHEN TANG</p>
+        <img class="hero-logo" src="./logo白.png" alt="詠真堂" width="1666" height="700">
+        <div class="mobile-portrait" aria-hidden="true">
+          <img src="./Eric形象照.jpg" alt="" class="hero-portrait" width="1024" height="1403" fetchpriority="high">
+        </div>
         <h1 id="hero-title">Eric Chen</h1>
         <p class="name-zh">陳昱華</p>
-        <h2>看見本質，做出更好的選擇。</h2>
-        <p class="lead">橫跨品牌行銷、塔羅易經與珠寶礦石，以洞察與策略，協助你找到真正適合的下一步。</p>
+        <h2 class="home-tagline">看見本質，做出更好的選擇。</h2>
+        <p class="home-description">Marketing · Oracle · Jewelry · Insight</p>
         <div class="button-row">
-          <a class="btn btn-primary" href="#positioning">探索 Eric <span aria-hidden="true">→</span></a>
-          <a class="btn btn-secondary" href="#contact">立即聯絡 <span aria-hidden="true">→</span></a>
+          <a class="btn btn-primary" href="#contact">與 Eric 聯絡 <span aria-hidden="true">→</span></a>
+          <button class="btn btn-secondary" id="hero-share" type="button">分享名片</button>
         </div>
       </div>
-      <div class="brand-orbit reveal" aria-label="詠真堂抽象品牌圖形" role="img">
-        <div class="orbit-ring ring-one"></div>
-        <div class="orbit-ring ring-two"></div>
-        <div class="orbit-ring ring-three"></div>
-        <span class="orbit-dot dot-one"></span>
-        <span class="orbit-dot dot-two"></span>
-        <span class="center-seal">詠<br>真</span>
+      <div class="portrait-stage reveal">
+        <div class="portrait-halo" aria-hidden="true"></div>
+        <img src="./Eric形象照.jpg" alt="Eric Chen 陳昱華形象照" class="hero-portrait" width="1024" height="1403" fetchpriority="high">
       </div>
     </section>
 
@@ -69,10 +66,7 @@
     </section>
 
     <section class="services section" id="services" aria-labelledby="services-title">
-      <div class="section-heading reveal">
-        <p class="eyebrow">FIELDS OF WORK</p>
-        <h2 id="services-title">專業領域</h2>
-      </div>
+      <div class="section-heading reveal"><p class="eyebrow">FIELDS OF WORK</p><h2 id="services-title">專業領域</h2></div>
       <div class="service-list" id="service-list"></div>
     </section>
 
@@ -80,42 +74,27 @@
       <div class="statement-card">
         <p class="eyebrow">YONG ZHEN TANG</p>
         <h2 id="statement-title">有些問題，不是沒有答案。<br>有些答案，只差一卦。</h2>
-        <p>詠真堂｜YONG ZHEN TANG</p>
+        <img class="statement-logo" src="./logo白.png" alt="詠真堂" width="1666" height="700">
       </div>
     </section>
 
     <section class="about section" id="about" aria-labelledby="about-title">
       <div class="about-panel reveal">
-        <p class="eyebrow">ABOUT ERIC</p>
-        <h2 id="about-title">關於 Eric</h2>
+        <p class="eyebrow">ABOUT ERIC</p><h2 id="about-title">關於 Eric</h2>
         <p>Eric 長期從事品牌行銷、內容策略與科技專案規劃，同時研習塔羅、易經、礦石與潛意識探索。</p>
         <p>他相信真正有效的建議，不應只是安慰或預測，而是讓人重新看懂問題，並產生可以執行的下一步。</p>
-        <div class="tag-list" aria-label="關鍵字">
-          <span>Brand Strategy</span><span>Marketing</span><span>Tarot</span><span>I Ching</span><span>Jewelry</span><span>Minerals</span><span>Insight</span>
-        </div>
+        <div class="tag-list" aria-label="關鍵字"><span>Brand Strategy</span><span>Marketing</span><span>Tarot</span><span>I Ching</span><span>Jewelry</span><span>Minerals</span><span>Insight</span></div>
       </div>
     </section>
 
     <section class="contact section" id="contact" aria-labelledby="contact-title">
-      <div class="contact-copy reveal">
-        <p class="eyebrow">CONTACT</p>
-        <h2 id="contact-title">與 Eric 聯絡</h2>
-        <p>若你正在整理品牌方向、重要選擇，或想尋找符合個人氣質的礦石與珠寶，歡迎留下訊息預約交流。</p>
-      </div>
-      <div class="contact-panel reveal">
-        <div class="contact-actions" id="contact-actions"></div>
-        <div class="button-row contact-cta">
-          <a class="btn btn-primary" id="primary-contact" href="#">與 Eric 聯絡 <span aria-hidden="true">→</span></a>
-          <button class="btn btn-secondary" id="save-vcard" type="button">儲存聯絡人 <span aria-hidden="true">↓</span></button>
-        </div>
-        <button class="share-link" id="share-card" type="button">分享電子名片</button>
-      </div>
+      <div class="contact-copy reveal"><p class="eyebrow">CONTACT</p><h2 id="contact-title">與 Eric 聯絡</h2><p>若你正在整理品牌方向、重要選擇，或想尋找符合個人氣質的礦石與珠寶，歡迎留下訊息預約交流。</p></div>
+      <div class="contact-panel reveal"><div class="contact-actions" id="contact-actions"></div><div class="button-row contact-cta"><a class="btn btn-primary" id="primary-contact" href="#">與 Eric 聯絡 <span aria-hidden="true">→</span></a><button class="btn btn-secondary" id="save-vcard" type="button">儲存聯絡人 <span aria-hidden="true">↓</span></button></div><button class="share-link" id="share-card" type="button">分享電子名片</button></div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <p><span id="footer-brand">詠真堂</span> © <span id="year"></span> Eric Chen. Insight · Strategy · Choice.</p>
-  </footer>
+  <footer class="site-footer"><p><span id="footer-brand">詠真堂</span> © <span id="year"></span> Eric Chen. Insight · Strategy · Choice.</p></footer>
+  <nav class="bottom-nav" aria-label="底部導覽"><a href="#top">首頁</a><a href="#services">專業</a><a href="#about">關於</a><a href="#contact">聯絡</a></nav>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js" defer></script>
 </body>

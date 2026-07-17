@@ -138,19 +138,23 @@ async function shareCard() {
   showToast("已複製電子名片網址");
 }
 
-function setupNavigation() {
-  const toggle = document.querySelector(".menu-toggle");
-  const nav = document.querySelector("#site-nav");
-  toggle.addEventListener("click", () => {
-    const isOpen = nav.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(isOpen));
-  });
-  nav.addEventListener("click", (event) => {
-    if (event.target.matches("a")) {
-      nav.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
+function setupShareButtons() {
+  ["#header-share", "#hero-share", "#share-card"].forEach((selector) => {
+    const button = document.querySelector(selector);
+    if (button) {
+      button.addEventListener("click", () => {
+        shareCard().catch(() => showToast("分享失敗，請稍後再試"));
+      });
     }
   });
+}
+
+function setupServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("service-worker.js").catch(() => undefined);
+    });
+  }
 }
 
 function setupReveal() {
@@ -175,12 +179,10 @@ function init() {
   document.querySelector("#footer-brand").textContent = profile.brand;
   renderServices();
   renderContactActions();
-  setupNavigation();
+  setupShareButtons();
+  setupServiceWorker();
   setupReveal();
   document.querySelector("#save-vcard").addEventListener("click", downloadVCard);
-  document.querySelector("#share-card").addEventListener("click", () => {
-    shareCard().catch(() => showToast("分享失敗，請稍後再試"));
-  });
 }
 
 document.addEventListener("DOMContentLoaded", init);
