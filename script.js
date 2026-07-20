@@ -1,24 +1,20 @@
 const services = [
   {
-    number: "01",
     title: "品牌行銷",
     desc: "整合線上與線下資源，把策略真正執行出來",
     href: "services/marketing/"
   },
   {
-    number: "02",
     title: "占卜預測",
     desc: "論運不論命，透過推演看清局勢與未來走向",
     href: "services/divination/"
   },
   {
-    number: "03",
     title: "珠寶礦石",
     desc: "從需求、風格與日常配戴，找到真正適合的作品",
     href: "services/jewelry/"
   },
   {
-    number: "04",
     title: "潛意識探索",
     desc: "看見反覆出現的模式，重新理解自己的選擇",
     href: "services/subconscious/"
@@ -32,7 +28,6 @@ function renderServices() {
   if (!list) return;
   list.innerHTML = services.map((service) => `
     <a class="service-card reveal" href="${service.href}">
-      <p class="service-index" aria-hidden="true">${service.number}</p>
       <h3 class="service-title">${service.title}</h3>
       <p class="service-preview">${service.desc}</p>
       <span class="service-more-link">了解更多 →</span>
@@ -120,6 +115,23 @@ function setupNavScrollSpy() {
     const active = nav.querySelector("a.active");
     if (active) moveIndicator(nav, active);
   });
+}
+
+function setupBottomNavReveal() {
+  const nav = document.querySelector(".bottom-nav");
+  if (!nav) return;
+
+  let ticking = false;
+  const update = () => {
+    nav.classList.toggle("is-visible", window.scrollY > 120);
+    ticking = false;
+  };
+  update();
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }, { passive: true });
 }
 
 function setupHeroParallax() {
@@ -257,6 +269,7 @@ function init() {
   setupServiceWorker();
   setupReveal();
   setupNavScrollSpy();
+  setupBottomNavReveal();
   setupHeroParallax();
 }
 
