@@ -21,8 +21,6 @@ const services = [
   }
 ];
 
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
 function renderServices() {
   const list = document.querySelector("#service-list");
   if (!list) return;
@@ -123,7 +121,7 @@ function setupBottomNavReveal() {
 
   let ticking = false;
   const update = () => {
-    nav.classList.toggle("is-visible", window.scrollY > 120);
+    nav.classList.toggle("is-visible", window.scrollY > 180);
     ticking = false;
   };
   update();
@@ -131,25 +129,6 @@ function setupBottomNavReveal() {
     if (ticking) return;
     ticking = true;
     window.requestAnimationFrame(update);
-  }, { passive: true });
-}
-
-function setupHeroParallax() {
-  if (prefersReducedMotion.matches) return;
-  const portraits = document.querySelectorAll(".hero-portrait");
-  if (!portraits.length) return;
-
-  let ticking = false;
-  window.addEventListener("scroll", () => {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(() => {
-      const offset = window.scrollY * 0.08;
-      portraits.forEach((portrait) => {
-        portrait.style.transform = `translateY(${offset}px)`;
-      });
-      ticking = false;
-    });
   }, { passive: true });
 }
 
@@ -270,7 +249,6 @@ function init() {
   setupReveal();
   setupNavScrollSpy();
   setupBottomNavReveal();
-  setupHeroParallax();
 }
 
 document.addEventListener("DOMContentLoaded", init);
