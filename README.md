@@ -191,13 +191,23 @@ H1、開場文字、強調句、H2 段落標題等一次性內容直接寫成靜
 
 ### Service Worker
 
-`CACHE_NAME` 升版為 `eric-card-v7`（新增 `calculator/` 三個檔案需要讓已安裝過舊版 Service Worker 的使用者拿到新內容），快取清單新增 `./calculator/index.html`／`./calculator/calculator.css`／`./calculator/calculator.js`，舊版快取會在 `activate` 事件中被清除。
+`CACHE_NAME` 升版為 `eric-card-v8`（本輪 `index.html`／`style.css`／`services/marketing/index.html`／`calculator/calculator.js`／`calculator/calculator.css` 皆有異動，需讓已安裝過舊版 Service Worker 的使用者拿到新內容），快取清單維持 `./calculator/index.html`／`./calculator/calculator.css`／`./calculator/calculator.js`，舊版快取會在 `activate` 事件中被清除。
 
 ## 廣告結果回推試算器（`calculator/`）
 
 一個完整的互動式「Interactive Marketing Funnel Calculator」，不是傳統問卷：從使用者真正想要的商業結果（新客戶數，或現有預算）開始，一路回推完整的商業漏斗（曝光→點擊→瀏覽→閱讀→CTA→聯絡→名單→〔預約→到場〕→成交），而不是直接問「你需要什麼服務」。全部使用 Vanilla HTML／CSS／JavaScript，沒有任何第三方套件，視覺完全沿用首頁既有的深色設計語言（`:root` 顏色變數、`--serif`／`--sans` 字型、`.primary-action`／`.secondary-action` 按鈕樣式）。
 
-尚未從主導覽或任何頁面連結到這個工具頁——目前只能透過 `https://ericinsocial.github.io/Eric/calculator/` 直接進入，是否要加入導覽／服務頁的連結入口，留待下一輪指示。
+### 入口整合
+
+試算器已正式整合進 `services/marketing/`（行銷專門頁），是該頁的主要互動內容，不是孤立頁面：
+
+- **行銷頁 Hero 首屏**：文案改為「你想得到多少新客戶？」，主要 CTA「免費試算我的廣告成果」（`href="#marketing-funnel-calculator"`，靠 `html { scroll-behavior: smooth }` 平滑捲動到同頁的試算器入口區塊）、次要 CTA「查看行銷服務」（`href="#marketing-services"`，捲動到「我可以協助什麼」區塊），按鈕下方有「免費試算｜不用留下電話｜約 3 分鐘完成」說明。
+- **試算器入口區塊**：新增 `<section id="marketing-funnel-calculator">`，位置在 Hero 圖片之後、「我可以協助什麼」之前（符合「主要差異化內容」應在首屏後、一般服務介紹前的順序）。內容包含小標題、說明文字、重用既有 `renderFlowDiagram()` 元件呈現的漏斗預覽（曝光→點擊→瀏覽→名單→成交），以及連到 `calculator/` 的「開始試算我的廣告成果」按鈕（`.cta-button` 元件）。由於試算器本身規模較大（獨立的完整互動流程），採用「同頁明確入口＋連到獨立路由」而非把整套精算引擎複製進行銷頁。
+- **中段第二入口**：在「代表性專案」之後、結語之前，加入「不知道應該先做廣告、網站、短影音，還是轉換追蹤？」搭配「開始免費試算」按鈕，同樣連到 `calculator/`，避免使用者錯過首屏按鈕。
+- **手機版固定入口**：`.marketing-float-cta`（僅行銷頁、僅手機版），顯示「免費試算廣告成果」，用 `IntersectionObserver` 監看 `#marketing-funnel-calculator` 區塊，捲動到試算器入口後自動淡出；固定於既有 `.bottom-nav` 上方（`bottom: calc(78px + env(safe-area-inset-bottom))`），兩者不重疊。
+- **首頁次要入口**：`index.html` 的「專業領域」區塊、四張服務卡片下方加入 `.calc-promo` 提示卡（「不知道廣告預算該抓多少？」／「免費試算」），連到 `services/marketing/index.html#marketing-funnel-calculator`，讓使用者不需要先知道行銷頁網址。
+- **導覽列**：首頁與四個詳情頁既有的「專業」導覽項目本來就會導向服務清單（含品牌行銷卡片），已是行銷頁的有效入口，因此**沒有**新增名稱相近的導覽項目。
+- **試算完成後的銜接**：試算器結果頁的行動區塊改為「想知道你的目標與預算是否合理？」＋「加入 LINE 詢問 Eric」（主要按鈕，`target="_blank"` 開啟 LINE）、「複製完整分析」與「重新開始試算」（次要按鈕），複製成功的提示文字改為「已複製，加入 LINE 後直接貼上即可」。
 
 ### 流程與分支邏輯
 
