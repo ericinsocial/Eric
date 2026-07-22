@@ -115,6 +115,19 @@ function setupNavScrollSpy() {
   });
 }
 
+function setupTopLinks() {
+  if (window.location.hash === "#top") {
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll('a[href="#top"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+}
+
 function setupBottomNavReveal() {
   const nav = document.querySelector(".bottom-nav");
   if (!nav) return;
@@ -248,6 +261,7 @@ function init() {
   setupServiceWorker();
   setupReveal();
   setupNavScrollSpy();
+  setupTopLinks();
   setupBottomNavReveal();
 }
 
