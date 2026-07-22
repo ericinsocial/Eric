@@ -254,6 +254,19 @@ function renderPlaceholderGrid(mountId, items, colsClass) {
   `).join("");
 }
 
+function setupThreadsToggle() {
+  document.querySelectorAll(".threads-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const extra = btn.closest(".threads-showcase")?.querySelector(".threads-extra");
+      if (!extra) return;
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      extra.hidden = expanded;
+      btn.setAttribute("aria-expanded", String(!expanded));
+      btn.textContent = expanded ? "展開更多內容" : "收起部分內容";
+    });
+  });
+}
+
 function init() {
   const yearEl = document.querySelector("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -263,6 +276,7 @@ function init() {
   setupNavScrollSpy();
   setupTopLinks();
   setupBottomNavReveal();
+  setupThreadsToggle();
 }
 
 document.addEventListener("DOMContentLoaded", init);
