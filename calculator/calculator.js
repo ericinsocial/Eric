@@ -840,9 +840,15 @@
   }
   function buildActionsHTML() {
     return `
-      <div class="calc-actions">
-        <button type="button" class="primary-action" id="calc-copy-btn">複製完整分析</button>
-        <button type="button" class="secondary-action calc-restart-btn" id="calc-restart-btn">重新開始試算</button>
+      <div class="calc-results-section">
+        <p class="calc-results-label">下一步</p>
+        <h2 class="calc-results-heading">想知道你的目標與預算是否合理？</h2>
+        <p class="calc-hint">複製完整試算結果，再到 LINE 與 Eric 討論</p>
+        <div class="calc-actions">
+          <a class="primary-action" href="https://line.me/ti/p/x0qtal5f5A" target="_blank" rel="noopener noreferrer">加入 LINE 詢問 Eric</a>
+          <button type="button" class="secondary-action" id="calc-copy-btn">複製完整分析</button>
+          <button type="button" class="secondary-action calc-restart-btn" id="calc-restart-btn">重新開始試算</button>
+        </div>
       </div>
     `;
   }
@@ -955,7 +961,7 @@
     ta.select();
     try {
       document.execCommand("copy");
-      showToast("已複製完整分析，可直接貼到 LINE");
+      showToast("已複製，加入 LINE 後直接貼上即可");
     } catch (err) {
       showToast("複製失敗，請手動選取文字");
     }
@@ -966,7 +972,7 @@
     const text = buildCopyText(state.lastResults);
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(
-        () => showToast("已複製完整分析，可直接貼到 LINE"),
+        () => showToast("已複製，加入 LINE 後直接貼上即可"),
         () => fallbackCopy(text)
       );
     } else {

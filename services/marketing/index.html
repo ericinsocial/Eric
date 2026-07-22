@@ -38,8 +38,13 @@
       <div class="content-wrap">
         <a class="back-link" href="../../index.html#services">← 返回專業領域</a>
         <p class="page-label">品牌行銷</p>
-        <h1>為什麼好的產品，卻一直賣不好？</h1>
-        <p class="hero-lines">問題通常不是缺少行銷工具<br>而是策略、內容、渠道與執行從來沒有真正連在一起</p>
+        <h1>你想得到多少新客戶？</h1>
+        <p class="hero-lines">從真正想要的結果開始<br>回推需要多少曝光、點擊、名單與廣告預算</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#marketing-funnel-calculator">免費試算我的廣告成果</a>
+          <a class="secondary-action" href="#marketing-services">查看行銷服務</a>
+        </div>
+        <p class="hero-note">免費試算｜不用留下電話｜約 3 分鐘完成</p>
       </div>
     </section>
 
@@ -47,7 +52,16 @@
       <div id="mount-hero-image" class="reveal-block"></div>
     </div>
 
-    <div class="content-wrap prose content-block">
+    <section class="content-wrap prose content-block" id="marketing-funnel-calculator" aria-labelledby="calculator-teaser-title">
+      <p class="page-label">廣告結果回推試算器</p>
+      <h2 id="calculator-teaser-title" class="reveal-block">不是先決定要不要投廣告</h2>
+      <p class="reveal-block">而是先知道，要達成你的目標<br>需要多少流量、名單與廣告預算</p>
+      <div id="mount-calc-flow" class="reveal-block"></div>
+      <p class="reveal-block"><a class="cta-button" href="../../calculator/">開始試算我的廣告成果</a></p>
+      <p class="support-line reveal-block">免費試算｜不用留下電話｜約 3 分鐘完成</p>
+    </section>
+
+    <div class="content-wrap prose content-block" id="marketing-services">
       <h2 class="reveal-block">我可以協助什麼</h2>
       <div id="mount-accordion" class="reveal-block"></div>
     </div>
@@ -63,6 +77,12 @@
     </div>
 
     <div class="content-wrap prose content-block">
+      <p class="emphasis reveal-block">不知道應該先做廣告、網站、短影音，還是轉換追蹤？</p>
+      <p class="reveal-block">先從你想得到的客戶數開始<br>系統會回推需要的流量、名單與預算</p>
+      <p class="reveal-block"><a class="cta-button" href="../../calculator/">開始免費試算</a></p>
+    </div>
+
+    <div class="content-wrap prose content-block">
       <p class="emphasis reveal-block">行銷不是做更多事情<br>而是讓所有事情朝同一個方向發生</p>
     </div>
 
@@ -70,6 +90,8 @@
       <div id="mount-cta" class="reveal-block"></div>
     </div>
   </main>
+
+  <a class="marketing-float-cta" id="marketing-float-cta" href="#marketing-funnel-calculator">免費試算廣告成果</a>
 
   <footer class="site-footer"><p>© <span id="year"></span> Eric｜詠真堂</p></footer>
   <nav class="bottom-nav" aria-label="底部導覽"><a href="../../index.html#top">首頁</a><a href="../../index.html#services" class="active">專業</a><a href="../../index.html#about">關於</a><a href="../../index.html#contact">聯絡</a></nav>
@@ -105,6 +127,16 @@
           { label: "直接來電", href: "tel:0920148119", secondary: true }
         ]
       });
+      renderFlowDiagram("mount-calc-flow", ["曝光", "點擊", "瀏覽", "名單", "成交"]);
+
+      const floatCta = document.getElementById("marketing-float-cta");
+      const calcSection = document.getElementById("marketing-funnel-calculator");
+      if (floatCta && calcSection && "IntersectionObserver" in window) {
+        const floatObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => floatCta.classList.toggle("is-hidden", entry.isIntersecting));
+        }, { threshold: .2 });
+        floatObserver.observe(calcSection);
+      }
     });
   </script>
 </body>
