@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>廣告結果回推試算器｜詠真堂</title>
+  <meta name="description" content="不是先決定要不要投廣告，而是先知道要達成你的目標，需要多少流量、名單與預算，輸入你想要的新客戶數，或目前的廣告預算，立即回推完整的商業漏斗">
+  <link rel="canonical" href="https://ericinsocial.github.io/Eric/calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="廣告結果回推試算器｜詠真堂">
+  <meta property="og:description" content="你想得到多少新客戶？從目標回推完整的廣告漏斗與預算">
+  <meta property="og:image" content="https://ericinsocial.github.io/Eric/Eric%E5%BD%A2%E8%B1%A1%E7%85%A7.jpg">
+  <meta property="og:locale" content="zh_TW">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./calculator.css">
+</head>
+<body class="calculator-page">
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <header class="site-header">
+    <a class="brand-lockup" href="../index.html#top" aria-label="詠真堂首頁">
+      <img class="brand-logo" src="../logo白.png" alt="詠真堂" width="1666" height="700">
+    </a>
+    <nav class="site-nav" aria-label="主要導覽">
+      <a href="../index.html#top">首頁</a>
+      <a href="../index.html#services">專業</a>
+      <a href="../index.html#about">關於</a>
+      <a href="../index.html#contact">聯絡</a>
+    </nav>
+  </header>
+
+  <div class="calc-progress" id="calc-progress" hidden aria-hidden="true">
+    <div class="calc-progress-fill" id="calc-progress-fill"></div>
+  </div>
+
+  <main id="main">
+    <section class="calc-hero" id="calc-hero">
+      <p class="calc-hero-eyebrow">互動式廣告試算</p>
+      <h1 class="calc-hero-title">你想得到多少新客戶？</h1>
+      <p class="calc-hero-subtitle">不是先決定要不要投廣告<br>而是先知道，要達成你的目標<br>需要多少流量、名單與預算</p>
+      <button type="button" class="primary-action calc-hero-cta" id="calc-start-btn">開始試算</button>
+    </section>
+
+    <section class="calc-wizard" id="calc-wizard" hidden aria-live="polite"></section>
+
+    <section class="calc-results" id="calc-results" hidden></section>
+  </main>
+
+  <div class="calc-toast" id="calc-toast" role="status" aria-live="polite"></div>
+
+  <footer class="site-footer"><p>© <span id="year"></span> Eric｜詠真堂</p></footer>
+  <nav class="bottom-nav" aria-label="底部導覽"><a href="../index.html#top">首頁</a><a href="../index.html#services">專業</a><a href="../index.html#about">關於</a><a href="../index.html#contact">聯絡</a></nav>
+  <script src="../script.js" defer></script>
+  <script src="./calculator.js" defer></script>
+</body>
+</html>

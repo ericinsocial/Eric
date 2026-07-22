@@ -12,6 +12,7 @@
 - `services/divination/index.html`：服務詳情頁「占卜預測」。
 - `services/jewelry/index.html`：服務詳情頁「珠寶礦石」。
 - `services/subconscious/index.html`：服務詳情頁「潛意識探索」。
+- `calculator/index.html`：互動式「廣告結果回推試算器」，獨立頁面（沿用共用 `style.css` 的設計變數，但元件樣式與邏輯獨立成 `calculator/calculator.css`／`calculator/calculator.js`，避免拖慢其他頁面）。
 
 ## 修改聯絡資料
 
@@ -190,7 +191,37 @@ H1、開場文字、強調句、H2 段落標題等一次性內容直接寫成靜
 
 ### Service Worker
 
-`CACHE_NAME` 升版為 `eric-card-v6`（因首頁 Hero 版型／`style.css` 大幅調整，需讓已安裝過舊版 Service Worker 的使用者拿到新內容），快取清單維持四個詳情頁路徑（`./services/marketing/index.html` 等），舊版快取會在 `activate` 事件中被清除。
+`CACHE_NAME` 升版為 `eric-card-v7`（新增 `calculator/` 三個檔案需要讓已安裝過舊版 Service Worker 的使用者拿到新內容），快取清單新增 `./calculator/index.html`／`./calculator/calculator.css`／`./calculator/calculator.js`，舊版快取會在 `activate` 事件中被清除。
+
+## 廣告結果回推試算器（`calculator/`）
+
+一個完整的互動式「Interactive Marketing Funnel Calculator」，不是傳統問卷：從使用者真正想要的商業結果（新客戶數，或現有預算）開始，一路回推完整的商業漏斗（曝光→點擊→瀏覽→閱讀→CTA→聯絡→名單→〔預約→到場〕→成交），而不是直接問「你需要什麼服務」。全部使用 Vanilla HTML／CSS／JavaScript，沒有任何第三方套件，視覺完全沿用首頁既有的深色設計語言（`:root` 顏色變數、`--serif`／`--sans` 字型、`.primary-action`／`.secondary-action` 按鈕樣式）。
+
+尚未從主導覽或任何頁面連結到這個工具頁——目前只能透過 `https://ericinsocial.github.io/Eric/calculator/` 直接進入，是否要加入導覽／服務頁的連結入口，留待下一輪指示。
+
+### 流程與分支邏輯
+
+- **Hero**：「你想得到多少新客戶？」＋一顆「開始試算」CTA。
+- **Step 1（起點選擇）**：① 已知目標客戶數（路徑 A）／② 已知預算（路徑 B）／③ 想做完整評估（路徑 C＝A＋B 合併，並額外用現有預算反推可得客戶數作為對照）。
+- **路徑 A**：目標客戶數 → 客單價 → 成交方式（決定後續漏斗形狀）→ 實際成交率（直接覆寫 `close` 轉換率，比預設值更貼近使用者真實狀況）。
+- **路徑 B**：每月預算 → 廣告目的（同樣決定漏斗形狀）。
+- **共用問題**（不分路徑都會問）：真正看到廣告的人／真正決定的人／目前有哪些素材／目前追蹤哪些數據／目前最大困擾——這些答案會直接影響結果頁的瓶頸分析與建議順序，不是固定文案。
+- 漏斗形狀依「成交方式」或「廣告目的」動態決定：直接購買（曝光→…→CTA→成交，跳過聯絡／名單／預約／到場）、LINE／表單／報價／品牌曝光（曝光→…→聯絡→名單→成交）、預約到店／預約諮詢／預約目的（完整 10 段含預約與到場）。
+
+### 計算引擎
+
+漏斗參數集中在 `calculator.js` 的 `FUNNEL_PRESETS`（保守／合理／理想三組，皆可透過進階模式的 slider 個別覆寫，且與 `mode` 切換即時重新計算），每一段轉換都同時算出「人數／轉換率／流失人數」。正向（由預算或曝光往後推到成交）與反向（由目標客戶數往前推到曝光）计算共用同一組 `computeChainForward`／`computeChainCounts`，確保兩種輸入模式使用同一套邏輯。預算同時以 CPC（`clicks × cpc`）與 CPM（`exposure ÷ 1000 × cpm`）兩種方式估算並排顯示，不假設兩者必然一致，讓使用者能自行比較；同時計算 CAC（客戶取得成本）與 ROAS（需要客單價才能計算，路徑 B 若無客單價則顯示「需提供客單價」而非硬湊數字）。
+
+### 瓶頸分析／改善順序／推薦服務
+
+三者共用同一套「弱項排序」（`rankWeakStages`：比較使用者目前轉換率與「合理」預設值的落差），確保「瓶頸分析」點出的問題、「建議改善順序」的步驟、「適合我的服務」的推薦彼此邏輯一致，而不是各自獨立的固定文案；同時混入使用者在共用問題中的作答（困擾、缺少的素材、缺少的追蹤、決策者與受眾是否不同）。推薦服務目前對應到既有的 `services/marketing/` 頁面（Meta 廣告／Landing Page／短影音／AI 自動化／SEO／品牌行銷顧問等，依弱項對應、去重後最多顯示三項）。
+
+### 互動細節
+
+- 每題一張卡片，`Enter`／`→` 前進，`←`／`Esc` 返回（在 Step 1 按 `Esc` 會回到 Hero），文字輸入框中的方向鍵不會被攔截（保留游標移動）。
+- 卡片切換、數字 Count Up（`requestAnimationFrame` 手刻，非套件）、漏斗長條寬度動畫皆尊重 `prefers-reduced-motion`，停用時直接顯示最終數值。
+- 調整「進階模式」的 slider 只會局部重新渲染結果區塊（漏斗／預算／瓶頸／建議／推薦服務），slider 本身所在的區塊不會被整個銷毀重建，避免拖曳到一半失焦或畫面閃爍。
+- 「複製完整分析」使用 `navigator.clipboard.writeText()`，並提供 `document.execCommand("copy")` 的隱藏 textarea 後備方案；複製內容為純文字（漏斗數字＋預算＋瓶頸＋建議，已移除 HTML 標籤），可直接貼到 LINE。
 
 ## GitHub Pages 部署
 
