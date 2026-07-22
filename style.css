@@ -138,14 +138,6 @@ p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.85; }
   padding-top: 38svh;
 }
 
-.hero-brand {
-  margin: 0 0 14px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: .28em;
-  color: rgba(255, 255, 255, .72);
-}
-
 .hero-name {
   display: flex;
   align-items: baseline;
@@ -240,8 +232,10 @@ p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.85; }
 }
 .primary-action:hover::after { transform: translateX(100%); }
 
-.positioning { border-left: 2px solid var(--accent-soft); padding-left: clamp(18px, 4vw, 40px); padding-top: 56px; padding-bottom: 56px; }
+.positioning { border-left: 2px solid var(--accent-soft); padding-left: clamp(18px, 4vw, 40px); padding-top: 36px; padding-bottom: 36px; }
 .positioning h2 { margin-bottom: 18px; }
+.positioning p { margin-top: 0; margin-bottom: 10px; }
+.positioning p:last-child { margin-bottom: 0; }
 
 .section-heading { margin-bottom: 24px; }
 
@@ -286,6 +280,15 @@ p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.85; }
 .statement-card h2 { font-family: var(--serif); font-weight: 600; font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.35; }
 .statement-line { font-family: var(--serif); font-weight: 500; font-size: clamp(1.2rem, 3vw, 1.5rem); line-height: 1.35; margin: 0; color: var(--text-secondary); }
 .accent-text { color: var(--accent); }
+.statement-more { font-size: .85rem; color: var(--text-secondary); letter-spacing: .04em; }
+.statement-link {
+  cursor: pointer;
+  transition: transform .25s ease, border-color .25s ease;
+}
+.statement-link:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
 
 .about-panel, .contact-panel {
   border: 1px solid var(--line);
@@ -368,11 +371,23 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
   .hero-name-zh { font-size: clamp(42px, 4vw, 52px); }
   .hero-tagline { font-size: clamp(48px, 4.2vw, 64px); }
 
+  .positioning { padding-top: 56px; padding-bottom: 56px; }
+
   .service-list { grid-template-columns: repeat(2, 1fr); }
 
   .method-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
   .contact { grid-template-columns: .85fr 1.15fr; align-items: start; }
+}
+
+@media (min-width: 1024px) {
+  .hero-background { background: #0d1117; }
+  .hero-background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
 }
 
 /* ===== Service detail pages (dark hero + light "editorial" body) ===== */
