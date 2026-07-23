@@ -16,10 +16,16 @@ export function evaluateCondition(condition, answers) {
   if (answer === undefined || answer === null) return false;
 
   switch (condition.operator) {
-    case "equals":
-      return Array.isArray(answer) ? answer.includes(condition.value) : answer === condition.value;
-    case "notEquals":
-      return Array.isArray(answer) ? !answer.includes(condition.value) : answer !== condition.value;
+    case "equals": {
+      // value 可以是單一值，也可以是陣列代表「符合其中之一」
+      // （例如 DiagnosticRule 需要判斷 single 題答案是否落在某幾個選項之一）。
+      const targets = Array.isArray(condition.value) ? condition.value : [condition.value];
+      return Array.isArray(answer) ? answer.some((v) => targets.includes(v)) : targets.includes(answer);
+    }
+    case "notEquals": {
+      const targets = Array.isArray(condition.value) ? condition.value : [condition.value];
+      return Array.isArray(answer) ? !answer.some((v) => targets.includes(v)) : !targets.includes(answer);
+    }
     case "includes": {
       if (!Array.isArray(answer)) return false;
       const targets = Array.isArray(condition.value) ? condition.value : [condition.value];

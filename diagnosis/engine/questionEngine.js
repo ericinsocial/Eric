@@ -11,19 +11,37 @@
  * 核心規則：
  * 1. 每次都優先清空「追問佇列」（pendingFollowUps）——使用者剛觸發的
  *    追問鏈，要在下一題立刻出現，而不是排到所有基礎題問完之後。
- * 2. 追問佇列清空後，才依 priority 由基礎題庫（commonQuestions）挑下一題。
+ * 2. 追問佇列清空後，才依 priority 由基礎題庫挑下一題。
  * 3. 題目是否出現，除了 conditions／applicableIndustries／applicableStages
  *    之外，也會用 stage.deprioritizeDimensions 過濾——例如「尚未創業」
  *    階段的 deprioritizeDimensions 包含 traffic／conversion／retention／
  *    system，所以不會被一直追問 GA4、廣告 ROAS 或會員回購率
  *    （對應規格五的明確例子），不需要在每一題資料上手動加條件。
+ *
+ * Conversation Flow（架構轉向後新增）：
+ * 4. 如果目前產業有專屬的 IndustryJourney（見 data/industryJourneys.js），
+ *    這個產業的「入口問題」就是該 Journey 自己的 entryQuestion，取代通用的
+ *    a4_biggest_problem——後者標了 `supersededByJourney: true`，engine 會
+ *    在有對應 Journey 時自動把它濾掉，兩者不會重複出現。entryQuestion 本身
+ *    的地位跟 a4_biggest_problem 完全一樣（都是基礎題池裡的一題、都靠
+ *    followUpQuestionIds 分流到不同路徑），差別只在於選項與後續路徑是
+ *    針對該產業設計的決策樹，而不是七個產業共用一套選項。
  */
 
 import { evaluateConditions } from "./conditionEvaluator.js";
 import { commonQuestions, followUpQuestions } from "../data/commonQuestions.js";
+import { journeyQuestions } from "../data/journeyQuestions.js";
+import { industryJourneys, getIndustryJourney } from "../data/industryJourneys.js";
 import { getStageById } from "../data/stages.js";
 
-const ALL_QUESTIONS = [...commonQuestions, ...followUpQuestions];
+const journeyEntryQuestions = industryJourneys.map((j) => j.entryQuestion);
+
+// 基礎題池：commonQuestions（通用共通題）＋ journeyEntryQuestions（各產業專屬入口）。
+// 入口問題跟 a4_biggest_problem 一樣沒有 conditions，純粹靠
+// applicableIndustries／priority 篩選與排序，行為完全一致。
+const BASE_QUESTION_POOL = [...commonQuestions, ...journeyEntryQuestions];
+
+const ALL_QUESTIONS = [...commonQuestions, ...followUpQuestions, ...journeyQuestions, ...journeyEntryQuestions];
 const QUESTION_MAP = new Map(ALL_QUESTIONS.map((q) => [q.id, q]));
 
 /** @param {string} id @returns {Question|undefined} */
@@ -53,6 +71,7 @@ export function createDiagnosisState(setup) {
 }
 
 function questionApplies(q, state) {
+  if (q.supersededByJourney && getIndustryJourney(state.industry)) return false;
   if (q.applicableIndustries && q.applicableIndustries.length && !q.applicableIndustries.includes(state.industry)) {
     return false;
   }
@@ -68,7 +87,7 @@ function questionApplies(q, state) {
 }
 
 function getBaseCandidates(state) {
-  return commonQuestions
+  return BASE_QUESTION_POOL
     .filter((q) => state.answers[q.id] === undefined && !state.askedIds.has(q.id))
     .filter((q) => questionApplies(q, state))
     .sort((a, b) => a.priority - b.priority);

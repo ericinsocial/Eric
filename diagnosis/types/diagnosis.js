@@ -80,7 +80,9 @@
  * 條件式跳題／子題觸發的判斷式，由 conditionEvaluator 解讀。
  * @property {string} questionId 依賴哪一題的答案
  * @property {"equals"|"notEquals"|"includes"|"excludes"|"gt"|"lt"|"gte"|"lte"} operator
- * @property {string|number|string[]} value 比較值
+ * @property {string|number|string[]} value 比較值。equals／notEquals 搭配字串陣列時，
+ *   代表「符合其中之一」（例如判斷 single 題答案落在某幾個選項之一）；
+ *   includes／excludes 則是判斷 multi 題答案是否包含某個值。
  */
 
 /**
@@ -90,6 +92,10 @@
  * @property {string} question 題目文字
  * @property {string} [description] 題目輔助說明
  * @property {AnswerType} answerType
+ * @property {string} whyAsking 為什麼要問這一題（給開發者／未來的我看，也是結果頁與 AI 引用推理過程的依據）——
+ *   不是在說「我要知道這個資訊」，而是「我要驗證什麼」。例如「是否有官網？」的 whyAsking
+ *   不是「我要知道有沒有官網」，而是「驗證目前是否擁有自己的流量資產」。
+ * @property {string} hypothesis 這一題的答案，會支持或推翻哪一個假設（見 Hypothesis／DiagnosticRule）
  * @property {QuestionOption[]} [options] single／multi 題型使用
  * @property {{min?: number, max?: number, unit?: string, placeholder?: string}} [numberConfig] number 題型使用
  * @property {{maxLength?: number, placeholder?: string}} [textConfig] text 題型使用（盡量避免使用，見規格十五）
@@ -103,6 +109,83 @@
  * @property {number} priority 同一批可問題目的排序優先度，數字越小越優先
  * @property {string[]} tags 自由標籤，用於除錯與資料檢視（例如 ["no-website", "ads"]）
  * @property {string} [section] 顯示進度用的階段名稱："basic"｜"positioning"｜"marketing"（對應規格十五的「基本狀況／客戶與定位／行銷與轉換」）
+ * @property {boolean} [supersededByJourney] 這一題是通用的「入口問題」，但如果目前
+ *   產業有專屬的 IndustryJourney，應該改問該產業自己的 entryQuestion——
+ *   questionEngine 看到這個旗標為 true、且 getIndustryJourney(industry) 存在時，
+ *   會跳過這一題（見 engine/questionEngine.js）。
+ */
+
+/**
+ * @typedef {Object} Hypothesis
+ * 規格三／四：系統不是在「問問題」，是在對一組懷疑做假設檢定。每一題、每一條
+ * DiagnosticRule 都指向某個 Hypothesis；結果頁的「瓶頸」本質上就是「證據最充分、
+ * 優先順序最高的 Hypothesis」。
+ * @property {string} id
+ * @property {Dimension} dimension
+ * @property {string} title 例如「客群定位不清楚」
+ * @property {string} description 這個假設具體代表什麼情境
+ */
+
+/**
+ * @typedef {Object} KnowledgeRootCause
+ * @property {string} cause 原因的簡短標籤，例如「服務體驗落差」
+ * @property {string} explanation 完整說明這個原因如何導致問題
+ * @property {string[]} [relatedSignals] 人類可讀的描述：哪些回答訊號會指向這個原因
+ *   （不是機器條件，條件判斷仍由 DiagnosticRule.when 負責）
+ */
+
+/**
+ * @typedef {Object} KnowledgeEntry
+ * 規格五：Marketing Knowledge Base——不是題目，是「每一個行銷問題背後真正的原因」。
+ * 結果頁與 AI 潤飾（Phase 4／5）都應該引用這裡的內容組句，而不是把解釋文字寫死在
+ * 結果頁 component 或 prompt 裡。
+ * @property {string} id
+ * @property {string} title 例如「Google 評價不佳」
+ * @property {Dimension} category
+ * @property {string} summary 一句話摘要這個現象
+ * @property {KnowledgeRootCause[]} rootCauses 可能的根本原因（通常不只一個）
+ * @property {string[]} [relatedHypothesisIds]
+ */
+
+/**
+ * @typedef {Object} DiagnosticRule
+ * 規格四／六：Diagnostic Rules，不是 Scoring Rules。重點不是「這題加幾分」，而是
+ * 「這幾個訊號同時成立時，代表高度懷疑某個假設」。when 用 Condition[]（AND）判斷，
+ * 條件可以跨越好幾題（例如 Google 評價好 AND IG 追蹤數高 AND 沒有客人）。
+ * @property {string} id
+ * @property {string} name 人類可讀的規則名稱，例如「口碑與聲量佳但沒有轉換到店」
+ * @property {Condition[]} when 觸發條件（AND 關係），可以跨題
+ * @property {string[]} hypothesisIds 觸發時，支持哪些 Hypothesis
+ * @property {string} conclusionTitle 結果頁可以直接使用的結論標題
+ * @property {string} conclusionReasoning 為什麼這些訊號組合起來會導出這個結論
+ *   （會被結果頁／AI 引用，取代黑箱結果）
+ * @property {"low"|"medium"|"high"} confidence
+ * @property {"low"|"medium"|"high"} severity
+ * @property {Dimension[]} dimensions 這條規則主要牽涉哪些維度
+ * @property {string[]} [knowledgeIds] 對應的 Marketing Knowledge Base 條目 id
+ */
+
+/**
+ * @typedef {Object} JourneyPath
+ * 規格一／二：Industry Journey 的其中一條分支——使用者選了某個入口選項之後，
+ * 會走的那一條「驗證假設」的路徑，而不是所有人都回答同一堆通用題目。
+ * @property {string} entryValue 對應 entryQuestion 的選項 value
+ * @property {string} label
+ * @property {string} description 這條路徑主要在驗證什麼
+ * @property {string[]} primaryHypothesisIds 這條路徑主要指向的假設
+ * @property {string[]} questionIds 這條路徑會依序用到的題目 id（實際跳題仍由
+ *   questionEngine 依 conditions／followUpQuestionIds 決定；這份清單是給文件與
+ *   QA 用的「這條路徑大致長怎樣」）
+ */
+
+/**
+ * @typedef {Object} IndustryJourney
+ * 規格一／二：Industry Journey——決策樹，不是題庫。每個產業有自己的「入口問題」
+ * （取代通用的『目前最大的經營困難是什麼？』），入口的每個答案會走向完全不同的
+ * 問題路徑，而不是所有人都被問同一套通用題目。
+ * @property {string} industryId
+ * @property {Question} entryQuestion 這個產業專屬的入口問題
+ * @property {JourneyPath[]} paths
  */
 
 /**
