@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AI 行銷成長檢測｜詠真堂</title>
+  <meta name="description" content="不是一份固定題數的問卷，而是依照你的產業、商業模式與發展階段動態調整的行銷成長診斷。找出真正卡住成長的瓶頸，而不是只給你一個籠統的分數。">
+  <link rel="canonical" href="https://ericinsocial.github.io/Eric/diagnosis/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI 行銷成長檢測｜詠真堂">
+  <meta property="og:description" content="找出真正卡住你成長的瓶頸，而不是一份籠統的行銷建議">
+  <meta property="og:image" content="https://ericinsocial.github.io/Eric/Eric%E5%BD%A2%E8%B1%A1%E7%85%A7.jpg">
+  <meta property="og:locale" content="zh_TW">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./diagnosis.css">
+</head>
+<body class="diagnosis-page">
+  <a class="skip-link" href="#main">跳至主要內容</a>
+
+  <header class="site-header">
+    <a class="brand-lockup" href="../index.html#top" aria-label="詠真堂首頁">
+      <img class="brand-logo" src="../logo白.png" alt="詠真堂" width="1666" height="700">
+    </a>
+    <nav class="site-nav" aria-label="主要導覽">
+      <a href="../index.html#top">首頁</a>
+      <a href="../index.html#services">專業</a>
+      <a href="../index.html#about">關於</a>
+      <a href="../index.html#contact">聯絡</a>
+    </nav>
+  </header>
+
+  <div class="diag-progress" id="diag-progress" hidden aria-hidden="true">
+    <div class="diag-progress-fill" id="diag-progress-fill"></div>
+    <p class="diag-progress-label" id="diag-progress-label"></p>
+  </div>
+
+  <main id="main">
+    <section class="diag-hero" id="diag-hero">
+      <p class="diag-hero-eyebrow">AI 行銷成長檢測</p>
+      <h1 class="diag-hero-title">找出真正卡住你成長的瓶頸</h1>
+      <p class="diag-hero-subtitle">不是一份固定題數的問卷<br>而是依照你的產業、商業模式與發展階段<br>動態調整、算給你看問題出在哪裡</p>
+      <button type="button" class="primary-action diag-hero-cta" id="diag-start-btn">開始檢測</button>
+      <p class="diag-hero-meta">約 5–8 分鐘・依你的回答動態調整題目</p>
+    </section>
+
+    <section class="diag-wizard" id="diag-wizard" hidden aria-live="polite"></section>
+
+    <section class="diag-results" id="diag-results" hidden></section>
+  </main>
+
+  <div class="diag-toast" id="diag-toast" role="status" aria-live="polite"></div>
+
+  <footer class="site-footer"><p>© <span id="year"></span> Eric｜詠真堂</p></footer>
+  <nav class="bottom-nav" aria-label="底部導覽"><a href="../index.html#top">首頁</a><a href="../index.html#services">專業</a><a href="../index.html#about">關於</a><a href="../index.html#contact">聯絡</a></nav>
+  <script src="../script.js" defer></script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
